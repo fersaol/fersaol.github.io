@@ -37,79 +37,256 @@
 				</ul>
 			</footer>
 		</section>
-        <!-- Wrapper -->
+
+
+<!-- Wrapper -->
     <div id="wrapper">
 
-        <!-- Main -->
-            <div id="main">
+	<!-- Main -->
+		<div id="main">
+			<!-- One -->
+				<section id="one">
 
-                <!-- One -->
-                    <section id="one">
-                        <div class="image main" data-position="center">
-                            <img src="images/co2mlpage_header.jpg" alt="" />
-                        </div>
-                        <div class="container">
-                            <header class="major">
-                                <h2 align="center">CO2 Emissions Machine Learning Project</h2>
-                                <p>Applied Machine Learning for environmental policy driving<br />
-                                <a href="http://html5up.net"></a></p>
-                            </header>
-                            <p align="justify">This is the machine learning part that follows from CO2 EDA project. In this part we identify country
-								clusters so we can then predict the country's efficiency while producing energy, based on the co2 emissions
-								emitted by energy produced unit. Latly, we classify new data provided by this countries in order to make
-								recommendations that allow them to drive its environmental policies. This project has been carried out by
-								using non supervised machine learning and supervised machine learning.
-								At the end, the three models are put together and devilered through webapps.</p>
-                        </div>
-                    </section>
+					<div class="image main" data-position="center">
+						<img src="images/co2mlpage_header.jpg"/>
+					</div>
 
-
-    <!-- Wrapper -->
-        <div id="wrapper">
-
-            <!-- Main -->
-                <div id="main">						
-                    <!-- Five -->
-                        <section id="five">
-                            <div class="container">
-                                <h3>Elements</h3>
-
-                                <section>
-                                    <h4>Text</h4>
-                                    <p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-                                    This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-                                    This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-                                    <hr />
-                                    <header>
-                                        <h4>Heading with a Subtitle</h4>
-                                        <p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-                                    </header>
-                                    <p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-                                    <header>
-                                        <h5>Heading with a Subtitle</h5>
-                                        <p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
-                                    </header>
-                                    <p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
-                                    
-                                    <ul class="actions">
-                                        <li><a href="https://fersaol-co2-streamlit-webapp-app-uh1z3w.streamlitapp.com/" class="button primary">Streamlit WebApp</a></li>
-                                        <li><a href="https://co2-ml-app.herokuapp.com/" class="button primary">Flask WebApp</a></li>
-                                    </ul>
-
-                                    <ul class="icons">
-									    <h5>See the code on GitHub</h5>
-                                        <li><a href="https://github.com/fersaol/The_Bridge_CO2_ML_Project" class="icon brands fa-github"><span class="label">Github</span></a></li>
-                                    </ul>
-				<!-- Footer -->
-				<section id="footer">
 					<div class="container">
-						<ul class="copyright">
-							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
+						<header class="major">
+							<h2 align="center">CO2 Emissions Machine Learning Project</h2>
+							<p>Applied Machine Learning for environmental policy driving<br />
+							</p>
+						</header>
+						<p align="justify">This is the machine learning part that follows from CO2 EDA project. In this part we identify country
+							clusters so we can then predict the country's efficiency while producing energy, based on the co2 emissions
+							emitted by energy produced unit. Latly, we classify new data provided by this countries in order to make
+							recommendations that allow them to drive its environmental policies. This project has been carried out by
+							using non supervised machine learning and supervised machine learning.
+							At the end, the three models are put together and devilered through webapps.
+						<blockquote>For getting a full context of the project, please see the <a href="co2_eda.html"><b>CO2 EDA project</b></a>.</blockquote></p>
 					</div>
 				</section>
-
 		</div>
+	</div>
+
+
+<!-- Wrapper2 -->
+	<div id="wrapper">
+
+		<!-- Main -->
+			<div id="main">						
+				<!-- two -->
+					<section id="two">
+						<div class="container" data-position="center">
+							
+							<section>
+								<h3>CLUSTERING</h3>
+								<p align="justify">First we take a look of the data, and we ca see that, not all, but 
+									the great majority has a gamma distribution.</br> 
+									<img src="images\cluster_images\raw_data_distribution.png" height="380" width="615"/></br>
+									As the algorithms work better with Gaussian like 
+									distributions, we scale them using Powertransformer, that makes a transformation 
+									of the data first and then scales it with 0 mean and unit variance.</br>
+									<img src="images\cluster_images\power_data_distribution.png" height="380" width="615"/></br>
+									We also have a categorical feature that we would like to use into our models, so we preprocess
+									this variable called Energy_type using the map fuction, as it allows us to decide the numbers 
+									assigned to each label. This numbers will represent the co2 emission, so the greater the numbers
+									the greater the co2 emitted by the energy source. We have gotten this assignation rule by obtaining
+									the co2 emission mean of every energy source as we can see below:</br>
+									<pre><code>df.groupby("Energy_type")["CO2_emission"].mean()</br></br>Energy_type</br>coal                        264.023</br>natural_gas                 111.226</br>nuclear                       0.000 </br>petroleum_and_other_liquids 208.812</br>renewables_and_others         0.000</br>Name: CO2_emission, dtype: float64</code></pre>
+									<p align="justify">Once we have the data ready, we have made several trials with different features selections, hyperparameters 
+									and two non supervised algorithms, KMeans and DBSCAN. The option that worked the best was a KMeans
+									using the co2_emission and energy_production features as it had the best trade-off between simplicity and metrics
+									performance, we can see the best result in the next graph(the dot size represents the gdp):</p>
+									<img src="images\cluster_images\clusters_graph.png" height="300" width="615"/></br>
+									This clusterization gives us the following country's categories:
+									<img src="images\cluster_images\country_categories.png" height="300" width="615"/></br>
+									where we can appreciate the following cluster's characteristics:
+									<ul align="justify">
+										<li><b>Cluster 0:</b>They are countries with a small energy production, but they does not have the smallest, mainly
+										based on petroleum, natural gas and coal. Although they are the third world producers, their contamination is the second
+										in the cluster's ranking so we could define them as not efficient countries with small productions and high co2 emissions
+										for the production they have.</li>
+										<li><b>Cluster 1:</b>This cluster has countries with low productions and low co2 emissions. They are not relevant countries 
+										for the world energy production and contamination and are based on nuclear, renewables and natural gas mainly.</li>
+										<li><b>Cluster 2:</b>This cluster has the world's biggest energy production countries and contaminating ones, in the graph above
+										we can see that exists a huge different between the rest of the clusters. Its production is based on coal, natural gas and petroleum
+										mainly,being coal the principal source, followed by petroleum and then natural gas. This three energy sources are the most contaminating
+										of all the techologies taken into account, but the coal is above the rest with big difference.</li>
+										<li><b>Cluster 3:</b>This cluster has countries with good energy productions, being the world's second producers, and low co2 emissions, 
+										at the cluster 1 level for a greater production. We can also see that they use all the energy sources in a more or less proportional amount, 
+										so their energy mix is very diversified and we could set this cluster out as the aim because of its very good eficiency.</li>
+									</ul>
+									<h4>¿Which metrics have we used to make our decisions?</h4>
+									<h5>Elbow Method</h5>
+									<p align="justify">This metric shows the sum of the cuadratic distances between each data point and its centroid, what is called inertia. Then, if we measure
+										the inertia for different number of clusters we can visually determine what is the optimum by choosing the number where the decrease of the inertia begins
+										to slow. For better understanding, we can determine a context where 1 cluster represents all data points and its inertia is maximum and the opposite where
+										each data point is a cluster, so the inertia is 0. We will choose the better trade-off between inertia and number of clusters as we see in the graph below:</br>
+										<img src="images\cluster_images\elbow.png" height="300" width="515"/></br>
+										As we can see, the optimum is 4 clusters and also has the lower computational cost, what reinforces the choose.
+									</p>
+									<h5>Silhouette Coefficient</h5>
+									The silhouette coefficient tells us if the algorithm is able to distinguish properly between the clusters. A good score of silhouette is above 0.5, and in our 
+									dataset we can see the graphs below:
+									<img src="images\cluster_images\silueta.png" height="300" width="615"/>
+									<img src="images\cluster_images\silueta2.png" height="300" width="615"/></br>
+									We can appreciate that 3 clusters is a good segmentation but 4 is better as its silhouette score is greater, meaning that 4 clusters represents better our data than 3.
+									It is also possible to see that in both clusterizations all the clusters are above the mean score, so they are well shaped and they are clear.
+								</p>
+								<hr/>
+								<h3>REGRESSION</h3>
+								<P>In this section we have used the clusters to obtain 4 models which allows us to predict the country's eficiency. This eficiency is measured by the division of the co2 emission
+									by the energy production, what give us the amount of co2 emitted by unit of energy production.</hr>
+									The process has been divided into the following steps for each cluster:
+									<ul>
+									<li><b>Feature Selection by cluster:</b> In this part we have selected through different methods the features that better defines each cluster.
+										The methods used have been the following:
+									</li>
+										<dt><i>- Correlation</i></dt>
+										<dt><i>- RFECV (Recursive Feature Elimination Cross Validation)</i></dt>
+										<dt><i>- VIF (Variance Inflator Factor)</i></dt>
+										<dt><i>- Statsmodels</i></dt>
+									<li><b>Cluster Base line</b></li>
+									<li><b>Model Selection:</b> in this part we have used the following metrics:</li>
+										<dt><i>- R2</i></dt>
+										<dt><i>- MAE (Mean Absolute Error)</i></dt>
+										<dt><i>- MSE (Mean Squared Error)</i></dt>
+										<dt><i>- Complexity</i></dt>
+										<dd>In this part we have used the variables selected by each of the methods seen before in all the algorithms,
+											so we could determine which combination of algorithm-variables works the best for each cluster.
+										</dd>
+									</ul>
+								<h2>THIS PART IS STILL IN PROGRESS, SOON IT WILL BE UPLOADED</h2>	
+								<!--	
+								<h4>Cluster 0</h4>
+								First of all we have created a base line with all the algorithms to have a reference point of comparison:</br>
+								<img src="images\cluster_images\cluster0_bl.png" height="300" width="615"/></br>
+								In this first glance we can see that the algorithms that better suites the grown truth are Ada Boost Regressor, 
+								Random Forest Regressor, Gradient Boosting Regressor and Decision Tree Regressor. Now, we are going to take a look
+								at the metrics of this base line, using all the variables:</br>
+								<img src="images\cluster_images\cluster0_r2_bl.png" height="300" width="615"/></br>
+								We can see that AdaBoost Regressor along with GradientBoosting Regressor are the ones that best represent the variability
+								of the dependent variable, eficiency, as they have the highest scores. Also, we can see that its robustness or reliability
+								are the greater, as they have the smallest standard deviation between scores gotten in the cross validation. Now we take a look
+								at the Mean Square Error:
+								<img src="images\cluster_images\cluster0_mse_bl.png" height="300" width="615"/></br>
+								Here we can see that the best ones are the same, but although AdaBoost Regressor and Random Forest Regressor have the better metrics,
+								they are not very reliable as they have a huge standard deviation, so it is possible that would be better choose GradientBossting Regressor
+								if we had to choose at this time. Let's take a look at the mean absolute error:
+								<img src="images\cluster_images\cluster0_mae_bl.png" height="300" width="615"/></br>
+								In this graph we can appreciate that, as in the others, the best ones are the same algorithms and almost all of them have the same standar deviation
+								between folds, so at these point we can intuit which one is going to be the selected.</br>
+								In the last part, as we setted up before, we compare the metrics of all the algorithms between them and between feature selection method and finally we
+								make the decision of choosing the AdaBoost Regressor based on Decision Tree Regressors because it has the best
+								metric-complexity trade-off. The variables chosen were those selected by the RFCEV and Correlation methods, because both selected the same ones, being these:
+								<ul>
+									<li>Energy_production</li>
+									<li>Energy_consumption</li>
+									<li>Co2_emission</li>
+									<li>balance</li>
+								</ul>
+								We can compare the reality versus prediction in the picture below:
+								<img src="images\cluster_images\cluster0_ada.png" height="300" width="615"/></br></br>
+								<blockquote><b>We follow the same reasoning for the rest of the clusters so we are going to just make some punctualitation if needed</b></blockquote>
+								<h4>Cluster 1</h4>
+								<img src="images\cluster_images\cluster1_bl.png" height="300" width="615"/></br>
+								<img src="images\cluster_images\cluster1_r2_bl.png" height="300" width="615"/></br>
+								<img src="images\cluster_images\cluster1_mse_bl.png" height="300" width="615"/></br>
+								<img src="images\cluster_images\cluster1_mae_bl.png" height="300" width="615"/></br>
+								
+								<h4>Cluster 2</h4>
+								<h4>Cluster 3</h4>
+								</p>
+								-->
+								<hr/>
+								<h3>CLASSIFICATION</h3>
+								<p align="justify">In this part we perform the classification of new data given into one of the preceding clusters obtained.
+									For that, we have removed the variables that we used in the clusterization part in order to not allow
+									the algorithms use them, as if we do, they will use them to obtein almost perfect results due to the clusters
+									were made by those variables, and the algorithms choose only those two variables.
+									First of all we check the class balance in our dataset as we can see in the graph below:</br>
+									<img src="images\cluster_images\class_balance.png" height="300" width="660"/></br>
+									Although the classes are imbalanced we do not consider is in a scale enough to justify a resampling, so we have kept the 
+									data structure.</br>
+									<h4>Base Line</h4>
+									We create our metric's base line as follow:</br>
+									<img src="images\cluster_images\accuracy.png" height="300" width="660"/></br>
+									<img src="images\cluster_images\precision.png" height="300" width="660"/></br>
+									<img src="images\cluster_images\recall.png" height="300" width="660"/></br>
+									<img src="images\cluster_images\f1.png" height="300" width="660"/></br>
+									In general we can see that they perform in the same order in all the metrics with little variations in values and standard deviation,
+									being the three best Random Forest Classifier, Gradient Boosting Classifier and Decision Tree Clasifier, what makes us think the choose 
+									is going to be between these three.
+									<h4>Features Selection</h4>
+									As in the previous parts we have gotten very good results using RFECV, this is the only method we are using for selecting variables in this
+									part. The results for the best three estimators in the base line has been:
+									<pre><code>vars_RandomForest= ['GDP', 'Population', 'Energy_consumption', 'per_capita_production','Energy_intensity_by_GDP', 'balance', 'energy_dependecy', 'co2_pc','energy_type']
+vars_xgb = ['Population', 'Energy_consumption', 'per_capita_production','balance', 'co2_pc', 'energy_type']
+vars_DecisionTree = ['GDP', 'Population', 'Energy_consumption', 'per_capita_production','balance', 'co2_pc', 'energy_type']</code></pre>
+									
+									<h4>Metrics by Estimator</h4>
+									Now we look at the general metrics for each estimator and then by estimator and cluster to decide which is best:
+									<h5>Metrics by estimator cross validated</h5>
+									Here we can see the cross validated metrics for each estimator selected:
+									<h6>Random Forest Metrics</h6>
+									<img src="images\cluster_images\rf_metrics.png" height="200" width="415"/></br>
+									<h6>Gradient Boosting Metrics</h6>
+									<img src="images\cluster_images\gb_metrics.png" height="200" width="415"/></br>
+									<h6>Decision Tree Metrics</h6>
+									<img src="images\cluster_images\dt_metrics.png" height="200" width="415"/></br>
+									In general all of them are good classifying, but Random Forest is the best in all of the metrics, so in general this is the best estimator. Let's see the metrics for each estimator
+									and cluster, so we can know where the classifiers do its job better and worse:
+									<h5>Metrics by Cluster</h5>
+									<img src="images\cluster_images\precisionbycluster.png" height="300" width="660"/></br>
+									<img src="images\cluster_images\recallbycluster.png" height="300" width="660"/></br>
+									<img src="images\cluster_images\f1bycluster.png" height="300" width="660"/></br>
+									If we look at the precision metric we can see that for cluster 0 and cluster 2 the best estimator is Random Forest, for cluster 1 is
+									Decision Tree and for cluster 3 Gradient Boosting. This means that each one of the estimators chosen are the best in detecting the right
+									cluster among the positive predictions.</br>
+									In the other hand, looking at the recall metric, that shows the quantity of right prediction among the real number of positive clusters, we can see that
+									Random Forest is the best in almost every cluster apart from cluster 3 where all of them do it the same.</br>
+									As Random Forest has done it better than the others in most of the clusters, we expect that it does well in f1 micro metric for all
+									the clusters, and so it does. This is because f1 is a composite metric calculated by the harmonic mean of precision and recall.
+									<h4>Conclusion</h4>
+									If we compare the mean metrics from the cross validation we can appreciate that:
+										<ol>
+											<li>Random Forest has the best accuracy, 0.978 and deviation +/- 0.003</li>
+											<li>Random Forest has the best precision, 0.977 and deviation +/- 0.003</li>
+											<li>Random Forest has the best recall, 0.978 and deviation +/- 0.003</li>
+											<li>Random Forest has the best f1 score, 0.977 and deviation +/- 0.003</li>
+										</ol>
+									Because of these, the chosen estimator has been Random Forest Classifier as it has the best metrics with the least standard deviation between predictions. 
+							
+								</p>
+								<hr/>
+								<h3>PCA (Principal Components Analysis)</h3>
+								<p></p>
+								<hr/>
+								<h3>PRODUCTION-WEB APP</h3>
+								<p>I you click on the buttons below you could check the webapps out and make your own simulations:</p>
+								
+								<ul class="actions">
+									<li><a href="https://fersaol-co2-streamlit-webapp-app-uh1z3w.streamlitapp.com/" class="button primary">Streamlit WebApp</a></li>
+									<li><a href="https://co2-ml-app.herokuapp.com/" class="button primary">Flask WebApp</a></li>
+								</ul>
+
+								<ul class="icons">
+									<h5>See the code on GitHub</h5>
+									<li><a href="https://github.com/fersaol/The_Bridge_CO2_ML_Project" class="icon brands fa-github"><span class="label">Github</span></a></li>
+								</ul>
+							</section>	
+						</div>	
+			<!-- Footer -->
+			<section id="footer">
+				<div class="container">
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</section>
+		</div>
+	</div>
 
 	<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
