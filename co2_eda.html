@@ -71,10 +71,134 @@
 				<!-- Five -->
 				<section id="five">
 					<div class="container">
-						<h2>Currently I am working on showing this part, but you can 
-							check out the code on: 
+						<h2>This section is not finished yet, but you can 
+							check out the full project and code on: 
 							<p style="text-decoration:underline"><a href="https://github.com/fersaol/co2_Exploratory_Data_Analysis">Github</a></h2></p>
-
+						<h3>About the Dataset</h3>
+						The dataset contains features regarding to energy production and co2 emissions from
+						the countries in the world, ranging a period of time that goes through 1989 up to 2020.
+						We can encounter features as the following:
+						<ul>
+							<li>Country - Country in question</li>
+							<li>Energy_type - Type of energy source</li>
+							<li>Year - Year the data was recorded</li>
+							<li>Energy_consumption - Amount of Consumption for the specific energy source, measured (quad Btu)</li>
+							<li>Energy_production - Amount of Production for the specific energy source, measured (quad Btu)</li>
+							<li>GDP - Countries GDP at purchasing power parities, measured (Billion 2015$ PPP)</li>
+							<li>Population - Population of specific Country, measured (Mperson)</li>
+							<li>Energyintensityper_capita - Energy intensity is a measure of the energy inefficiency of an economy.
+								It is calculated as units of energy per unit of capita (capita = individual person), measured (MMBtu/person)</li>
+							<li>Energyintensityby_GDP- Energy intensity is a measure of the energy inefficiency of an economy. It is
+								calculated as units of energy per unit of GDP, measred (1000 Btu/2015$ GDP PPP)</li>
+							<li>CO2_emission - The amount of C02 emitted, measured (MMtonnes CO2)</li>
+						</ul>
+						<h3>Checking the data</h3>
+						<h4>Head,Tail and Sample</h4>
+						We encounter that we have features with very different scales and that we have nulls. Also
+						we see that the energy_type variable is a string, Year is an integer variable and should be parsed.
+						The dataset also have an Unnamed: 0 column that is not worthy and should be removed as well as Country
+						is also a string variable, being the rest numeric ones.<hr>
+						<h4>Info</h4>
+						If we check the info we can realize about the beforehand information and we can know exactly how many
+						nulls there are in every single feature, we see this in the picture below:
+						<img src="images/eda_images/info.png" width="600"/>
+						folowing with the description of our dataset, we first drop the Unnamed column, and then we check the
+						describe of the features:
+						<img src="images/eda_images/co2_eda_describe.png" width="600" height="200"/>
+						First of all we can see that having year as an integer does not make any sense so we are changing it to
+						datetime. We also see that Energy consumption and Energy production both have similar values, so the scale
+						is close to each other, and gdp has a very high standard deviation. This indicate there is a big difference 
+						in terms of GDP between countries being the minimum 0.124 and the maximum 127690.24. On energy consumption, 
+						energy production and co2 emission we see that means are respectively 1.538, 1.532 and 78.8 but the maximum
+						values are 601, 611 and 35.584, moreover the 75% data is concentrared until 0.209 for energy consumption, 0.112
+						for energy production and 4.32 for co2 emission what it can indicate there is outliers in our dataset. But we will
+						check all this out later.
+						Finally, we set the next steps to follow:
+						<ol>
+							<li>we should convert Year into a datetime variable</li>
+							</li>From the energy_consumption column are null values, we need to identify them and decide if we remove or replace them.</li>
+							<li>The Energy_consumption minimum is negative so we have to look up if this has sense. We also have to discover if 25% of the data that is accumulated till 0 makes sense too.</li>
+							<li>In Energy production happens the same as in Energy_consumption, however for 50 and 75 percentiles it can make sense the country has a negative production if these countries do not produce energy enough and they have to import it, being its balance negative. In this case, the variable would be a net balance and we beleive is not the case, we should check it out.</li>
+							<li>The maximum value for GDP is very high, we should check out this is not an outlier, and make the same for the minimum. Wrapping up, to check outliers.</li>
+							<li>Intensity per capita and GDP have also possible outliers, check them out too, and in general.</li>
+							<li>On co2 emissions we see there are negative values, Does this make sense?, and the 50% of values are cumulated until 0, Does this make sense too?. However, the maximum value is too high resulting in a high standar deviation, This also make sense?.</li>
+						</ol>
+						First, let's convert Year to datetime:
+						<pre><code>df.Year = pd.to_datetime(df.Year,format="%Y")</code></pre>
+						Then let's see what percentage of null values we have in each feature:
+						<img src="images/eda_images/co2_deda_nulos.png" width="600" height="250"/>
+						<h5>Energy_consumption nulls</h5>
+						They are distribuited almost equally by years:
+						<img src="images/eda_images/co2_eda_nulosanio.png" width="600" height="250"/>
+						By country, we can see that the majority of the null values comes from very small countries as 
+						Hawaiian Trade Zone, Germany West, Former Yugoslavia, Palestinian Territories or Namibia among others, 
+						which are possible at that time they were involved into a war, or they were not attached to the 
+						collection system or they are just developing countries and they were not able to provide data. 
+						There are also developed countries, but in much less quantity, and it can be due an error. 
+						Let's see the graph:
+						<img src="images/eda_images/co2_eda_nullpais.png" width="600" height="250"/>
+						Now, let's take a closer look to the 20 countries with most nulls:
+						<img src="images/eda_images/co2_eda_20largest.png" width="600" height="300"/>
+						Although we have nulls in almost all countries and years, we can appreciate that our idea was 
+						not too wrong. This way we can see that the 20 countries with more nulls are countries which does no 
+						longer already exists, as East and West Germany or the URSS, or they are developing countries, which are the 
+						majority. Due to the high number of null data in these countries we have decided to drop them. 
+						Doing this we are going to also drop a very homogeneus amount of data by year.
+						<h5>Energy_production nulls</h5>
+						We have gotten the same insights about energy_production so we have taken the same actions as before.
+						(Anyways the code relating to this variable can be checked on the github link for more detail)
+						<h5>GDP, Population, Energy_intensity_per_capita, Energy_intensity_by_GDP and CO2_emission</h5>
+						They do not represent a large proportion of the data. In this sense, the GDP would be considered that in the 
+						years that there has been no data, the gdp remained constant. With the population we could assume the same 
+						criterion, in the years that there was no data, the population remained constant. so we have decided to 
+						imput the nans as follows:
+						<ul>
+							<li><b>GDP:</b>we are using the panda's method backfill</li>
+							<li><b>Population:</b>we are also using the panda's method backfill</li>
+						</ul>
+							The intensity indices per capita have even fewer nulls in relation to the total data and since they 
+							are a quotient that includes the previous variables, I believe that the same method should be adopted 
+							to maintain homogeneity:
+						<ul>
+							<li><b>Energy_intensity_per_capita:</b>we are using the panda's method backfill</li>
+							<li><b>Energy_intensity_by_GDP:</b>we are using the panda's method backfill</li>
+						</ul>
+						Finally, in relation to CO2 emissions, it seems to me, given the decisions taken previously, and for the 
+						same reasons, to apply the same method. Since we do not have data, we are assuming that the data of the 
+						period prior to the null were kept constant and I think it is a good method in this case:
+						<ul>
+							<li><b>CO2_emission:</b>we are using the panda's method backfill</li>
+						</ul>
+						Now that we have no nulls in our dataset, let's check how they are distribuited:
+						<img src="images/eda_images/co2_eda_consprodistri.png" width="600" height="200"/>
+						<img src="images/eda_images/co2_eda_conprodistracum.png" width="600" height="200"/>
+						We can see that the vast majority of the data is accumulated around 0 with just some big values, we could interpret
+						this because of the big differences between a little number of countries that have very large numbers related with 
+						the rest. This fact punts on the table the inequality regarding to energy production and consumption in the world.
+						Let's make a plot with the rest of variables:
+						<img src="images/eda_images/co2_eda_alldistributions.png" width="600" height="200"/>
+						<img src="images/eda_images/co2_eda_alldistributionsacum.png" width="600" height="200"/>
+						We can appreciate that any of the variables have a normal distribution. It could be that this is not very clear watching
+						just the aggregated data itself so we are going to zoom in at some countries to see how they are distribuited:
+						<h5>Alabania</h5>
+						<img src="images/eda_images/albania.png" width="600" height="200"/>
+						<h5>Afghanistan</h5>
+						<img src="images/eda_images/afganistan.png" width="600" height="200"/>
+						At the moment what I can see in the histograms is that although the number of data referring to each 
+						of the countries is distributed in a more or less uniform way, the variables are not distributed in such 
+						a way. For example, GDP, population, energy consumption and production, CO2 emissions are not distributed 
+						evenly, but are concentrated near zero. On the other hand, the types of energy used are distributed evenly.
+						We removed the data labeled world,because it was just the aggregated sum, but does not change the picture 
+						of the data by individual countries.
+						Let's see how the data grouped by country looks like, on average:
+						<img src="images/eda_images/co2_eda_consumpall.png" width="600" height="500"/>
+						Here we can corroborate the distribution that we saw in the histogram, where three countries clearly 
+						monopolize energy consumption and therefore the same will happen with co2 emissions and with the 
+						production and the rest of the countries are concentrated around 0 and 9.86. In this way, 
+						that 25 percent accumulated up to 0 makes sense. let's take a closer look to the biggest ones:
+						<img src="images/eda_images/co2_eda_15consum.png" width="600" height="300"/>
+						<h4>Negative Numbers</h4>
+						
 				</section>
 
 		</div>
