@@ -272,6 +272,16 @@ df["Country"] = df["Country"].replace(reemplazo)
 						<img src="images/eda_images/40biggestconsumers.png" width="600" height="300"/>
 						<img src="images/eda_images/40biggestemmiters.png" width="600" height="300"/>
 						<h4>Feature Engineering</h4>
+						In this section we have created some new variables in order to acquire a better understanding of the countries' co2 emission and also to be
+						able to gather new insights and relationships. For this purpose we have created the following:
+						<ul>
+							<li>Balance = Energy_production - Energy_consumption: it will tell us if the economy is net energy producer or consumer, hence if it exports or imports.</li>
+							<li>Eficiencia = Co2_emissions / Energy_production = it will tell us how much co2 the contry emmits by ton of energy produced, hence it will represent which country is more environmentally concerned or what economy is cleaner.</li>
+							<li>Dependencia energética = Energy_consumption / GDP, it will tell us how much energy a country consumps by euro of GDP, hence the energy dependency.</li>
+							<li>Intensidad de uso = Energy_consumption / population, it will tell us how much energy is consumed by person and hence the people dependency of energy. Bigger dependency means bigger co2 emmision.</li>
+							<li>co2_pc = Co2_emissions / population: co2_emissions by person</li>
+						</ul>
+
 
 
 
