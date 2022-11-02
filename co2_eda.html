@@ -180,7 +180,7 @@
 						<img src="images/eda_images/co2_eda_alldistributionsacum.png" width="600" height="200"/>
 						We can appreciate that any of the variables have a normal distribution. It could be that this is not very clear watching
 						just the aggregated data itself so we are going to zoom in at some countries to see how they are distribuited:
-						<h5>Alabania</h5>
+						<h5>Albania</h5>
 						<img src="images/eda_images/albania.png" width="600" height="200"/>
 						<h5>Afghanistan</h5>
 						<img src="images/eda_images/afganistan.png" width="600" height="200"/>
@@ -198,8 +198,88 @@
 						that 25 percent accumulated up to 0 makes sense. let's take a closer look to the biggest ones:
 						<img src="images/eda_images/co2_eda_15consum.png" width="600" height="300"/>
 						<h4>Negative Numbers</h4>
-						
+						The first thing we are going to check is the types of energy related with negative numbers, for that we
+						make:
+						<pre><code>menos_cero = df[df.Energy_consumption < 0] 
+menos_cero.Energy_type.unique() 
+
+OUTPUT:
+array(['renewables_n_other'], dtype=object)
+						</code></pre>
+						We see that all negative energy consumption is due to the type of renewable generation, and it makes sense,
+						since being renewable, they do not consume energy for its production but rather contribute it to the system 
+						and hence the data is negative. In this sense, we keep the negative data in the dataframe.
+						<h4>Energy production negative numbers</h4>
+						In energy production the same thing happens as in Energy_consumption, however for the 50th and 75th percentiles 
+						it may make sense for the country to have a negative production if these do not produce enough energy and have to 
+						import it from abroad and their balance is negative. In that case, the variable would be a net balance and I think 
+						that is not the case, check it.
+						<pre><code>menos_cero_prod = df[df.Energy_production < 0]
+print(f"todos los valores corresponden a {menos_cero_prod.Country.unique()} con un total de {len(menos_cero_prod)})
+
+OUTPUT:
+todos los valores corresponden a Qatar con un total de 6 valores
+						</code></pre>
+						We see that the negative values ​​corresponding to energy production all correspond to Qatar and included in the 
+						period from 1984 to 1995. We can see that it had no consumption, and that production, can also be considered zero. 
+						In other words, Qatar in these periods does not produce or consume renewable energy, so we are going to eliminate them. 
+						This is due, as we have been able to read, to the fact that Qatar is the largest gas exporter in the world and has never 
+						needed to worry about renewables, so it began to worry about this around the year 2019.
+						<pre><code>df = df.drop(menos_cero_prod.index)</code></pre>
+						<h4>The maximum GDP is very high, confirm that it is not an outlier and do the same for the minimum. Check the outliers in general.</h4>
+						For this part first we filter our features choosing only the numeric ones:
+						<pre><code>df_continuas = df.select_dtypes(exclude=["object","datetime64"])</code></pre>
+						then, we plot them using boxplots:
+						<img src="images/eda_images/boxplots.png" width="600" height="300"/>
+						Given the data distribution seen before in which most of the energy production and consumption, as well as CO2 emissions 
+						and population are concentrated in a few countries, we consider the boxplots we see to be normal and we cannot consider 
+						there are outliers. In Energy_intensity_by_GDP we could see that we have two outliers but it is not worth removing them.
+						Let's check countries' population:
+						<img src="images/eda_images/co2_eda_population.png" width="600" height="600"/>
+						As we can not see properly the data, althoug we can spot the general trend in the world population, let's focus on the 5
+						world largest populated countries:
+						<img src="images/eda_images/co2_eda_5_largestpop.png" width="600" height="300"/>
+						We see how the majority of the population is concentrated in China, India, the United States and Indonesia, and hence that boxplot, 
+						we cannot put them as outliers.
+						<h4>7. In co2 emissions we see that the minimum is negative, does it make sense?. By the other hand, 50% of the values ​​acummulate 
+						until 0 as well, does that make sense?. However, the maximum is very high, which gives us a very high standard deviation as well, 
+						does that make sense?</h4>
+						let's see how many negative data we have in the co2_emission variable:
+						<pre><code>emisiones_negativas = df[df.CO2_emission < 0]
+len(emisiones_negativas)
+
+OUTPUT:
+3
+						</code></pre>
+						<img src="images/eda_images/co2_eda_3negatives.png" width="600" height="100"/>
+						We have three data, corresponding to the coal of Singapore, in which it is indicated that the CO2 emissions are negative. Given the 
+						years to which they correspond, and that in those years there was no energy production, only consumption, it could be interpreted as 
+						that instead of emitting, they absorbed co2 from the atmosphere, which for us does not make sense and, since there are only 3 data, 
+						we think it would be good to remove them from the dataframe.
+						Let's take a look at how much data we have left divided by type of energy and year:
+						<img src="images/eda_images/co2_eda_datacounting.png" width="600" height="200"/>
+						In the next graph we can see the same but each column give us the total amount of data by year in a clearer way:
+						<img src="images/eda_images/co2_eda_datacounterplotly.png" width="600" height="300"/>
+
+						In the data Russia is divided into Russia and Former U.S.S.R and Germany into Germany, Germany East and Germany West, so we are going to
+						update the names because if not, the data is distorted as those countries does no longer exist.
+						<pre><code>reemplazo = {"Former U.S.S.R.":"Russia","Germany, West":"Germany","Germany, East":"Germany"}
+df["Country"] = df["Country"].replace(reemplazo)
+						</code></pre>
+						Now that we already have the dataset clean let's plot 3 of the most important features to better understand the context. In these plots 
+						we are going to see the 40 more important countries by mean:
+						<img src="images/eda_images/40biggestproducers.png" width="600" height="300"/>
+						<img src="images/eda_images/40biggestconsumers.png" width="600" height="300"/>
+						<img src="images/eda_images/40biggestemmiters.png" width="600" height="300"/>
+						<h4>Feature Engineering</h4>
+
+
+
+
+
+
 				</section>
+
 
 		</div>
 	<!-- Footer -->
