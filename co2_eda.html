@@ -116,15 +116,26 @@
 						Finally, we set the next steps to follow:
 						<ol>
 							<li>we should convert Year into a datetime variable</li>
-							</li>From the energy_consumption column are null values, we need to identify them and decide if we remove or replace them.</li>
-							<li>The Energy_consumption minimum is negative so we have to look up if this has sense. We also have to discover if 25% of the data that is accumulated till 0 makes sense too.</li>
-							<li>In Energy production happens the same as in Energy_consumption, however for 50 and 75 percentiles it can make sense the country has a negative production if these countries do not produce energy enough and they have to import it, being its balance negative. In this case, the variable would be a net balance and we beleive is not the case, we should check it out.</li>
-							<li>The maximum value for GDP is very high, we should check out this is not an outlier, and make the same for the minimum. Wrapping up, to check outliers.</li>
-							<li>Intensity per capita and GDP have also possible outliers, check them out too, and in general.</li>
-							<li>On co2 emissions we see there are negative values, Does this make sense?, and the 50% of values are cumulated until 0, Does this make sense too?. However, the maximum value is too high resulting in a high standar deviation, This also make sense?.</li>
+							<li>From the energy_consumption column are null values, we need to identify them and decide if we remove or replace them.</li>
+							<li>Negative Numbers:
+								<dl>
+									<dt>-	The Energy_consumption minimum is negative so we have to look up if this has sense. We also have to discover 
+										if 25% of the data that is accumulated till 0 makes sense too.</dt>
+									<dt>-	In Energy production happens the same as in Energy_consumption, however for 50 and 75 percentiles it can make sense 
+										the country has a negative production if these countries do not produce energy enough and they have to import it, 
+										being its balance negative. In this case, the variable would be a net balance and we beleive is not the case, we should 
+										check it out.</dt>
+									<dt>-	On co2 emissions we see there are negative values, Does this make sense?, and the 50% of values are acummulated until 0, 
+										Does this make sense too?. However, the maximum value is too high resulting in a high standar deviation, This also make sense?.</dt>
+								</dl>		
+							</li>
+							<li>The maximum value for GDP is very high, we should check out this is not an outlier, and make the same for the minimum.
+								Wrapping up, to check outliers.Intensity per capita and GDP have also possible outliers, check them out too, and in general.</li>
 						</ol>
+						<h4>1. Convert Year into datetime</h4>
 						First, let's convert Year to datetime:
 						<pre><code>df.Year = pd.to_datetime(df.Year,format="%Y")</code></pre>
+						<h4>2. Null Values</h4>
 						Then let's see what percentage of null values we have in each feature:
 						<img src="images/eda_images/co2_deda_nulos.png" width="600" height="250"/>
 						<h5>Energy_consumption nulls</h5>
@@ -197,7 +208,8 @@
 						production and the rest of the countries are concentrated around 0 and 9.86. In this way, 
 						that 25 percent accumulated up to 0 makes sense. let's take a closer look to the biggest ones:
 						<img src="images/eda_images/co2_eda_15consum.png" width="600" height="300"/>
-						<h4>Negative Numbers</h4>
+						<h4>3. Negative Numbers</h4>
+						<h5>Energy Consumption Negative Numbers</h5>
 						The first thing we are going to check is the types of energy related with negative numbers, for that we
 						make:
 						<pre><code>menos_cero = df[df.Energy_consumption < 0] 
@@ -209,7 +221,7 @@ array(['renewables_n_other'], dtype=object)
 						We see that all negative energy consumption is due to the type of renewable generation, and it makes sense,
 						since being renewable, they do not consume energy for its production but rather contribute it to the system 
 						and hence the data is negative. In this sense, we keep the negative data in the dataframe.
-						<h4>Energy production negative numbers</h4>
+						<h5>Energy production negative numbers</h5>
 						In energy production the same thing happens as in Energy_consumption, however for the 50th and 75th percentiles 
 						it may make sense for the country to have a negative production if these do not produce enough energy and have to 
 						import it from abroad and their balance is negative. In that case, the variable would be a net balance and I think 
@@ -226,7 +238,23 @@ todos los valores corresponden a Qatar con un total de 6 valores
 						This is due, as we have been able to read, to the fact that Qatar is the largest gas exporter in the world and has never 
 						needed to worry about renewables, so it began to worry about this around the year 2019.
 						<pre><code>df = df.drop(menos_cero_prod.index)</code></pre>
-						<h4>The maximum GDP is very high, confirm that it is not an outlier and do the same for the minimum. Check the outliers in general.</h4>
+						<h5>In co2 emissions we see that the minimum is negative, does it make sense?. By the other hand, 50% of the values ​​acummulate 
+							until 0 as well, does that make sense?. However, the maximum is very high, which gives us a very high standard deviation as well, 
+							does that make sense?</h4>
+							let's see how many negative data we have in the co2_emission variable:
+							<pre><code>emisiones_negativas = df[df.CO2_emission < 0]
+	len(emisiones_negativas)
+	
+	OUTPUT:
+	3
+							</code></pre>
+							<img src="images/eda_images/co2_eda_3negatives.png" width="600" height="100"/>
+							We have three data, corresponding to the coal of Singapore, in which it is indicated that the CO2 emissions are negative. Given the 
+							years to which they correspond, and that in those years there was no energy production, only consumption, it could be interpreted as 
+							that instead of emitting, they absorbed co2 from the atmosphere, which for us does not make sense and, since there are only 3 data, 
+							we think it would be good to remove them from the dataframe.
+						<h4>4. Outliers</h4>
+						<h5>The maximum GDP is very high, confirm that it is not an outlier and do the same for the minimum. Check the outliers in general.</h5>
 						For this part first we filter our features choosing only the numeric ones:
 						<pre><code>df_continuas = df.select_dtypes(exclude=["object","datetime64"])</code></pre>
 						then, we plot them using boxplots:
@@ -240,22 +268,7 @@ todos los valores corresponden a Qatar con un total de 6 valores
 						world largest populated countries:
 						<img src="images/eda_images/co2_eda_5_largestpop.png" width="600" height="300"/>
 						We see how the majority of the population is concentrated in China, India, the United States and Indonesia, and hence that boxplot, 
-						we cannot put them as outliers.
-						<h4>7. In co2 emissions we see that the minimum is negative, does it make sense?. By the other hand, 50% of the values ​​acummulate 
-						until 0 as well, does that make sense?. However, the maximum is very high, which gives us a very high standard deviation as well, 
-						does that make sense?</h4>
-						let's see how many negative data we have in the co2_emission variable:
-						<pre><code>emisiones_negativas = df[df.CO2_emission < 0]
-len(emisiones_negativas)
-
-OUTPUT:
-3
-						</code></pre>
-						<img src="images/eda_images/co2_eda_3negatives.png" width="600" height="100"/>
-						We have three data, corresponding to the coal of Singapore, in which it is indicated that the CO2 emissions are negative. Given the 
-						years to which they correspond, and that in those years there was no energy production, only consumption, it could be interpreted as 
-						that instead of emitting, they absorbed co2 from the atmosphere, which for us does not make sense and, since there are only 3 data, 
-						we think it would be good to remove them from the dataframe.
+						we cannot put them as outliers.<hr>
 						Let's take a look at how much data we have left divided by type of energy and year:
 						<img src="images/eda_images/co2_eda_datacounting.png" width="600" height="200"/>
 						In the next graph we can see the same but each column give us the total amount of data by year in a clearer way:
