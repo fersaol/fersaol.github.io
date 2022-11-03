@@ -294,6 +294,110 @@ df["Country"] = df["Country"].replace(reemplazo)
 							<li>Intensidad de uso = Energy_consumption / population, it will tell us how much energy is consumed by person and hence the people dependency of energy. Bigger dependency means bigger co2 emmision.</li>
 							<li>co2_pc = Co2_emissions / population: co2_emissions by person</li>
 						</ul>
+						<h4>Geolocation Data</h4>
+						As we think it could be very interesting to plot the data into a map we add geolocation variables to the dataframe:
+						<ul>
+							<li>CODE: which contains the iso international identification code for the countries</li>
+							<li>geometry: a variable that was contained into the geolocation used for draw the shape of the countries in geopandas</li>
+							<li>continent: this is a self made variable with the aim of acquire aggregated insights by continent</li>
+							<li>latitude and longitude: variables to place the countires on the map</li>
+						</ul>
+						We realize that not all countries in our dataset have latitude and longitude, so we check which countries are:
+						<pre><code>df.Country[(df.latitude.isnull()) | (df.longitude.isnull())].unique()
+
+OUTPUT:
+array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
+       'The Bahamas', 'Wake Island', 'Saint Vincent/Grenadines', 'Burma',
+       'Côte d’Ivoire', 'Congo-Kinshasa', 'Congo-Brazzaville',
+       'Hawaiian Trade Zone', 'Falkland Islands', 'Former Czechoslovakia',
+       'Former Yugoslavia', 'Gambia, The', 'Former Serbia and Montenegro',
+       'Sao Tome and Principe', 'Cabo Verde', 'Eswatini',
+       'North Macedonia', 'South Sudan', 'U.S. Minor Outlying Islands'],
+      dtype=object)
+						</code></pre>
+						but they are going to be removed, or integrated with other countries as  Former Czechoslovakia or Former Yugoslavia
+						because we are going to focus our study in the 40 world biggest producers. We have decided to focus in this 40 countries
+						because of the following reasons:
+						<h5>1. very low productions that python assimilates to zero so they create infinite values, what hinders the study not being
+						relevant for the world co2 emissions</h5>
+						<h5>Supporting the before decision we have found the following:</h5>
+						<ul>
+							<li>the mean world energy production is 141.42</li>
+							<li>the mean production of the 40 world biggest producers is 141.37</li>
+							<li>given that data the 40 world biggest producers account for the 99.97% 
+								of the energy production and the rest for just the 0.03%</li>
+						</ul>
+						Because of these reasons we have end up removing the rest of the countries as we understand that is not worth keep them 
+						and study them, as they are generetating more troubles than the potencial beneficts they could bring.
+						Now, let's take a look at the mix production for the 4 biggest producers and the 14 smallest ones, 
+						the biggest are first:<br>
+						<img src="images/eda_images/co2_eda_pie_production.png" width="600" height="1000"/>
+						(zooming in the data can be read better or you can see the graphs on <a href="https://github.com/fersaol/co2_Exploratory_Data_Analysis/blob/main/src/notebooks/analisis_co2.ipynb"> the github source</a>)<br>
+						and take a look at their GDP Evolution:
+						<img src="images/eda_images/co2_eda_evolupig.png" width="600" height="300"/>
+						We have seen that China is the second largest producer of energy and that 75 percent of it comes 
+						from coal, we also see that its GDP has grown exponentially during the period surpassing the 
+						United States that has had a linear growth.However, we can see in the next plot that China is not the country 
+						that emits more CO2 per ton of BTU of energy produced on average:
+						<img src="images/eda_images/co2_eda_30leastefimean.png" width="600" height="300"/>
+						and this does not fit much with the fact that the production mostly comes from coal, with the United States 
+						ahead of China, although very even, the latter having a generation mix more distributed among sources.
+						For this reason, we think that we should look instead of the average CO2 emitted per ton, the sum of CO2 
+						per ton to see if this point is confirmed in which China and the United States are not the ones that pollute 
+						the most related to the production they provide, and also if the pollution between them is similar, we see this
+						in the next graph:
+						<img src="images/eda_images/co2_eda_30leasteficountries.png" width="600" height="300"/>
+						We observe the positions remain relatively stable if we consider the total CO2 per ton emitted, 
+						keeping China in 20th place and the United States rising to 18th ahead of it. Let's look at CO2 
+						emissions in absolute value:
+						<img src="images/eda_images/co2_eda_30greaterpoluters.png" width="600" height="300"/>
+						Looking at the absolute values we can see that in total China and the United States, despite their 
+						differences in the mix of energy used to produce it, pollute practically the same, with the United States 
+						ahead of China.In addition, per ton of btu of energy produced, the mix of the United States pollutes more 
+						than that of China so we can conclude that this is an important characteristic for the growth of a country, 
+						but the focus on coal does not look like it explains too much, or at least not as much as we thought,  
+						China's growth. Let's see how the energy used by China and the United States has evolved over time:
+						<h5>CHINA</h5>
+						<img src="images/eda_images/co2_eda_energy_production_etype.png" width="600" height="300"/>
+						We see how China since 1999, although it has not changed its energy production model, it has 
+						greatly enhanced it, which has helped it to its strong growth. That is to say, that the great 
+						increase in production with coal may be a consequence of profound changes in its national 
+						productive structure, not changing its production model but enhancing it.
+						<h5>UNITED STATES</h5>
+						<img src="images/eda_images/co2_eda_enerprodbyetype.png" width="600" height="300"/>
+						In the case of the United States we see that from 2007 it is carrying out a change 
+						in its energy production structure since it has stopped producing with coal in an 
+						important way and is strongly promoting natural gas and oil, but not the renewables 
+						that we see that its growth is much more moderate.
+						Let's plot the same graphs adding the GDP Evolution:
+						<h5>CHINA</h5>
+						<img src="images/eda_images/co2_eda_prodvsgdpchina.png" width="600" height="300"/>
+						<h5>UNITED STATES</h5>
+						<img src="images/eda_images/co2_eda_prodvsgdp.png" width="600" height="300"/>
+						In the case of the United States we can see that when the change in production begins, 
+						it begins to grow at a lower rate than it had been doing, however in the case of China 
+						it seems a fairly stable growth. Let's see what the average annual growth has been for 
+						both economies before and after the points of change in energy production.
+						For the United States the change point was on 2007. Before that date the country was growing at a 3.15%
+						annual rate, but before the energy production change they started to grow just at 1.65% annual rate. Looking
+						at the absolute GDP values, United States starts at 7080.75M$ppp on 1980 and achieves by 2007 16356.75M$ppp
+						ending on 2019 with 19925.43M$ppp.
+						In the other hand, China has its changing point on 1999 and from 1980 to this point, it has always grown at a
+						higher ration than the United States. This way, before 1999 China was growing at a pace of 9.93% annual rate
+						and after 1999 at 8.98%. Although the United States changes the energy production later than China, as China has
+						been always growing at a much greater ratio than the United States, and the Unite States after 2007 starts growing
+						at a very low rate, China achieves a level of GDP in absolute terms higher than that of the United States, being of
+						23128.32M$ppp on 2019.
+						Another relation that is clear on the graphs is that as the GDP grows the Energy production so do it too, we can see
+						this type of relationship for both countries in the next scatterplots:
+						<img src="images/eda_images/co2_eda_scatterchina.png" width="600" height="300"/>
+						<img src="images/eda_images/co2_eda_scatterus.png" width="600" height="300"/>
+						In the scatters above the size of the bubbles represents the amount of energy produced and the color the GDP, so as we
+						can appreciate the energy production increases much more in China than in the United States.
+						<h4>Contraste de Hipótesis</h4>
+						
+
+
 
 
 
