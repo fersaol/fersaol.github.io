@@ -71,9 +71,7 @@
 				<!-- Five -->
 				<section id="five">
 					<div class="container">
-						<h2>This section is not finished yet, but you can 
-							check out the full project and code on: 
-							<p style="text-decoration:underline"><a href="https://github.com/fersaol/co2_Exploratory_Data_Analysis">Github</a></h2></p>
+						
 						<h3>About the Dataset</h3>
 						The dataset contains features regarding to energy production and co2 emissions from
 						the countries in the world, ranging a period of time that goes through 1989 up to 2020.
@@ -394,10 +392,67 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						<img src="images/eda_images/co2_eda_scatterus.png" width="600" height="300"/>
 						In the scatters above the size of the bubbles represents the amount of energy produced and the color the GDP, so as we
 						can appreciate the energy production increases much more in China than in the United States.
-						<h4>Contraste de Hipótesis</h4>
-						
-
-
+						<h4>Hypothesis Contrast</h4>
+						We will see through a contrast of paired t-test hypotheses if there is indeed something interesting to study, or in other 
+						words, if the averages of the period of 1980-1999, in the case of China, and 1980-2007, in the case of the United States, 
+						are different from their respective averages in the period of 2000-2019 and 2008-2019 respectively (we carry it out using 
+						scipy.stats.ttest_rel and you could check the code out on <a href="https://github.com/fersaol/co2_Exploratory_Data_Analysis/blob/main/src/notebooks/analisis_co2.ipynb">Github</a>):
+						<h5>For the United States</h5>
+						<h6>-GDP</h6>
+						the p-value is less than the alpha coefficient for a 95% interval of confident so we can say that something is different between
+						those periods and there is something interesting to study about.
+						<h6>-Energy Production</h6>
+						The same can be said for energy production for both periods and therefore it is 
+						very likely that the change in the US energy production mix has had some effect on GDP growth.
+						<h6>-Co2 Emissions</h6>
+						Likewise, the test indicates that there is something relevant that has happened between 
+						the periods that make the different averages and therefore confirms that the change in 
+						the mix has had an effect on CO2 emissions.
+						<h5>For China</h5>
+						<h6>-GDP</h6>
+						As the p-value is less than alpha = 0.05 we can say that something has happened that 
+						is worth studying in the GDP of China since 1999. Let's perform the same test for energy production:
+						<h6>-Energy Production</h6>
+						The same can be said for energy production for both periods and therefore it is very likely that 
+						the change in China's energy production mix has had some effect on GDP growth. Let's see the same 
+						with CO2 emissions:
+						<h6>-Co2 Emissions</h6>
+						Likewise, the test indicates that there is something relevant that has happened between 
+						the periods that make the different averages and therefore confirms that the change in 
+						the mix has had an effect on CO2 emissions
+						<h4>Correlation</h4>
+						<img src="images/eda_images/co2_eda_allvarscorrelation.png" width="600" height="400"/><br>
+						Now let's check these correlations groupped by Country, focusing on China and US what are the countries 
+						we are studying because of their importance in the world:
+						<h5>China</h5>
+						<img src="images/eda_images/co2_eda_chinacorrs.png" width="600" height="400"/><br>
+						<h5>United States</h5>
+						<img src="images/eda_images/co2_eda_uscorrs.png" width="600" height="400"/><br>
+						<h4>Continent Base Insights</h4>
+						Now we are going to take a look at the data aggregated by continents as we are going to be able to spot
+						some additional and different information regarding to the countries from another point of view:
+						Firstly, we check the aggregated gdp:
+						<img src="images/eda_images/co2_eda_continentgdp.png" width="600" height="300"/><br>
+						As we can see Asia, North America and Europe are the continents with a
+						higher value of gdp and then we have South America, Africa and Oceania. We have divided America in two 
+						parts because we consider there are enough economic and cultural differences that allow us to have a better
+						picture. Then we compare the energy production with energy consumption:
+						<img src="images/eda_images/co2_eda_prodvscons.png" width="600" height="300"/><br>
+						In this plot we can see that the continents with more gdp also have the greatest energy consumption and that
+						positions are the same as before except for Africa and South America. In these two particular ones the gdp is
+						similar but Africa has more energy consumption than South America. Then, Looking at the energy production we can
+						see that we have the same order as in the gdp plot, also being Africa and South America very close each other.
+						By other hand, we can see Asia,North America and Europe are net producers and can sell energy to the rest of the world
+						and Africa, South America and Ocania are importers as they do not produce enough energy for their requirements.
+						In the Europe case, the amount is very low. Let's check co2 emissions:
+						<img src="images/eda_images/co2_eda_continentemissions.png" width="600" height="300"/><br>
+						Here we can see that Asia and North America emmits the majority of the Co2 as well as they are the continents with 
+						more production and consumption. Is noteciable how Africa has less gdp than South America but consumes more energy
+						and emmits more co2. Now let's ckeck energy dependency:
+						<img src="images/eda_images/co2_eda_continentdependency.png" width="600" height="300"/><br>
+						In this plot we can appreciate Europe has grown a lot and Asia remains the first. This can be explained due to big
+						differences between the countries that composes each continent, this way in Asia the majority of countries are energy
+						dependant and China is the opposite. This same thing happens in Europe.
 
 
 
