@@ -151,14 +151,13 @@
 									<li><b>Model Selection:</b> in this part we have used the following metrics:</li>
 										<dt><i>- R2</i></dt>
 										<dt><i>- MAE (Mean Absolute Error)</i></dt>
-										<dt><i>- MSE (Mean Squared Error)</i></dt>
+										<dt><i>- Median Absolute Error</i></dt>
 										<dt><i>- Complexity</i></dt>
 										<dd>In this part we have used the variables selected by each of the methods seen before in all the algorithms,
 											so we could determine which combination of algorithm-variables works the best for each cluster.
 										</dd>
 									</ul>
-								<h2>THIS PART IS STILL IN PROGRESS, SOON IT WILL BE UPLOADED</h2>	
-								<!--	
+							
 								<h4>Cluster 0</h4>
 								First of all we have created a base line with all the algorithms to have a reference point of comparison:</br>
 								<img src="images\cluster_images\cluster0_bl.png" height="300" width="615"/></br>
@@ -166,7 +165,7 @@
 								Random Forest Regressor, Gradient Boosting Regressor and Decision Tree Regressor. Now, we are going to take a look
 								at the metrics of this base line, using all the variables:</br>
 								<img src="images\cluster_images\cluster0_r2_bl.png" height="300" width="615"/></br>
-								We can see that AdaBoost Regressor along with GradientBoosting Regressor are the ones that best represent the variability
+								We can see that AdaBoost Regressor along with RandomForest Regressor are the ones that best represent the variability
 								of the dependent variable, eficiency, as they have the highest scores. Also, we can see that its robustness or reliability
 								are the greater, as they have the smallest standard deviation between scores gotten in the cross validation. Now we take a look
 								at the Mean Square Error:
@@ -186,9 +185,139 @@
 									<li>Co2_emission</li>
 									<li>balance</li>
 								</ul>
-								We can compare the reality versus prediction in the picture below:
+								<h4>CLUSTER 0 MODEL SELECTION USING VARIABLES CHOSEN BY CORRELATION METHOD</h4>
+								We can compare the reality versus prediction in the picture below so we can make a choice. The plot and the dataframe are part of a single function
+								that sorts the models by the r2 metric and represents the first one(the data shown in the graph and the table are not exactly the same because when
+								plotting the graph the model is corss validated ones again).
 								<img src="images\cluster_images\cluster0_ada.png" height="300" width="615"/></br></br>
+								<img src="images\cluster_images\cl0_panel_metricas.png" height="300" width="615"/></br></br>
+								We see AdaBoostRegressor is the best, gathering the best r2 and median mae metric. We can also see that 
+								the median is much lower than the mean absolute error what is telling us the extreme values are pulling 
+								right the mean absolute error, so they are influencing the mean metric. In this sense, we are giving 
+								more importance to the r2 and median metrics than the mean metric as decisory ones because we decided 
+								we should keep the extreme values in the dataset because of the kind of data we are dealing off. 
+								In consecuence, we want to minimize the effect of these data on the metrics.
+								Let's now take a look at the validation curve for the model chosen so we can see if there is room for 
+								improvement and other considerations:
+								<img src="images\cluster_images\cl0_correlation_valcurve.png" height="300" width="615"/></br>
+
+								We observe that the model learns well with training but does not do so well when generalizing in the 
+								validation curve, reaching a maximum r2 value of approximately 0.68. This generates a fairly large 
+								generalization error and indicates that the model suffers from variance or overfitting. Given this 
+								diagnosis, we can see that with the increase in complexity it is not possible to improve the model 
+								and therefore we have considered the following options:
+								<ol>
+									<li>The validation data is not sufficiently representative of the training dataset. This may be influenced by the extreme values we have maintained.</li>
+									<li>We are trying to predict a simple matter with a too complex a model.</li>
+								</ol>
+								If we contrast this model, with a much simpler one such as Linear Regression we see that the metrics 
+								it achieves are very poor, so it is likely to be more a problem of representativeness of the data 
+								chosen for validation. In this sense, we increase the percentage of data for validation from 0.2 to 0.3 
+								and maintain the method of cross validation using the RepetedKfold. This has improved the numbers 
+								somewhat but the graph we obtained is maintained.
+								Given these conclusions we consider that with the assumptions taken it is not possible to improve the 
+								model much more at this point, so we are going to stay with it and try to improve it by adjusting the 
+								hyperparameters of it. This way we are able to improve the model to 0.9322 r2 using a  hyperparameter
+								n_estimators of 32 and the exponential value for loss. Then, we retrain the model and crossvalidate it
+								as follows:
+								<img src="images\cluster_images\cl0_hypermodel.png" height="300" width="615"/></br>
+								We found that we have improved the generalization of the model at the expense of obtaining higher errors 
+								as we can see in the metrics. That is, now our model has the ability to explain in a greater proportion 
+								the variability of the target at the cost of incurring greater errors throughout its predictions. 
+								This seems to us a good compromise given that in this situation our model is more reliable when predicting 
+								with data that it has not seen because it indicates that it has better captured the general trend.
+								Finally we represent the learning curve of this model:
+								<img src="images\cluster_images\cl0_learningcurve.png" height="300" width="615"/></br>
+								Observing the learning curve made with the Median Absolute Error metric, we observe that at the beginning 
+								the model has a large BIAS but as the number of data increases, the training and validation curves are 
+								approaching, converging towards a lower absolute median error for training and greater for validation in 
+								order to reach an optimal point. However, once the maximum number of data contained in the dataset has 
+								been reached, there is still a high generalization gap (distance between the validation curve and the 
+								training curve) so they never converge, indicating that with a greater number of data it would still be 
+								possible to improve this model.<br>
+								<h4>CLUSTER 0 MODEL SELECTION USING VARIABLES CHOSEN BY VIF METHOD</h4>
+								<img src="images\cluster_images\cl0_vif.png" height="300" width="615"/></br>
+								In this model by selecting variables using the vif we can see that the estimator that best explains the 
+								variability of the target is Random Forest Regressor with an approximately 0.74-0.76 r2 and a median error of 12.50 , 
+								which difference from the average error is much lower. This indicates that, as in the previous case, there 
+								are few errors in the data with extreme values but they affect the average enough due to its magnitude.
+								<img src="images\cluster_images\cl0_vif_valcurve.png" height="300" width="615"/></br>
+								We can see that there is some overfitting in the model, since although we see that the model learns well 
+								in the training curve, the level of r2 that reaches the validation curve is a little far from that of 
+								training, being between 0.80 and 0.85. Even so, we consider that it is an acceptable generalization gap 
+								for the distribution of data that we have and as we have seen in the rest of the combinations.
+								<img src="images\cluster_images\cl0_vif_hypermodel.png" height="300" width="615"/></br>
+								We see that we have been able to improve the ability to explain the variability of the target by reducing 
+								the average absolute error and increasing the median absolute error somewhat. It is also a model that has 
+								a much lower rmse so the large errors of extreme values are affecting it less and it is a model that in 
+								general has a better ability to generalize than that of its base line.
+								<img src="images\cluster_images\cl0_vif_learningcurve.png" height="300" width="615"/></br>
+								<img src="images\cluster_images\cl0_vif_learningcurve2.png" height="300" width="615"/></br>
+								Looking at the learning curve in which we use as a metric the square root of the mean square error we can 
+								see that as the number of data increases, the curves are approaching, but they never converge so we could 
+								establish that with a greater number of data it would be possible to improve the model. However, given the 
+								characteristics of our data, we consider that it is more reliable to use the median of absolute error and 
+								therefore we perform its learning curve in order to confirm the previous conclusions. In this sense, we 
+								observe that the lines converge in a more pronounced but not sufficient way and therefore our previous 
+								assumptions are confirmed.
+								<h4>CLUSTER 0 MODEL SELECTION USING VARIABLES CHOSEN BY RFECV METHOD</h4>
+								<img src="images\cluster_images\cl0_rfecv_model.png" height="300" width="615"/></br>
+								We see that in this case the best estimator is GradientBoosting Regressor with an r2 of 0.8014, 
+								a mae of 544.16 and a median absolute error of 48.65.
+								<img src="images\cluster_images\cl0_rfecv_valcurve.png" height="300" width="615"/></br>
+								In the validation curve we see how there is a discrepancy between the value of the training curve 
+								and the validation curve, having a large generalization gap between them, and therefore that, the 
+								model is able to predict, but not very well with new data. 
+								Given the previous study, which obtained much better results, we deduced that the configuration of 
+								the model with the variables chosen by this method makes it not the most appropriate, since it does 
+								not correctly capture the general trend of the data set. Still, let's try to improve it somewhat with 
+								the adjustment of its hyperparameters where we have been able to achieve a 0.8414 r2 and plot it:
+								<img src="images\cluster_images\cl0_rfecv_hypermod.png" height="300" width="615"/></br>
+								Given the validation curve and the conclusions, we thought that the improvement to be achieved, would 
+								not be very high as it has been, however we have improved more than we expected.
+								We can see that with our model adjusted by hyperparameters we obtain a higher value of r2, with which 
+								we better explain the variability of our target through its independent variables and the median error 
+								has been reduced by more than half, so it is a better model than the initial one. Let's look at the 
+								lerning curve:
+								<img src="images\cluster_images\cl0_rfecv_Learningcurve.png" height="300" width="615"/></br>
+								In the learning curve we see how as we add new data the model is doing better and better when it comes 
+								to generalizing, reducing the bias and increasing the variance. However, with the data that we have, we 
+								do not get a model that converges completely, and therefore, adding new data would improve it. Still, we 
+								consider the median error not to be extremely high, although we've found other models that do better.
+								<h4>CLUSTER 0 MODEL SELECTION USING VARIABLES CHOSEN BY OLS-STATSMODELS METHOD</h4>
+								<img src="images\cluster_images\cl0_ols_model.png" height="300" width="615"/></br>
+								In this model configuration we can observe that AdaBoost Regressor has achieve the best R2 and Median 
+								absolute error value. As we can see in the graph the extreme values influences the mean absolute error. 
+								Anyways, we choose the best model and take a look at the validation curve so we can explore the 
+								improvement options using it:
+								<img src="images\cluster_images\cl0_ols_valcurve.png" height="300" width="615"/></br>
+								As in the other configurations where the selected model has been AdaBoost Regressor we see that the 
+								validation curve is irregular along its pace as the complexity increases and that the validation curve 
+								is not able to reach an r2 value close to the training one. This indicates that the model learns well 
+								but it struggles at predicting new data not seen before so the model suffers from overfitting. As this 
+								method is the last and seen the before conclusions we think this results are due to the extreme values 
+								kept. 
+								<img src="images\cluster_images\cl0_ols_hypermod.png" height="300" width="615"/></br>
+								After several attempts for hyperparameter tuning, we managed to improve the model somewhat obtaining a 
+								0.852 r2. All of them have been around an r2 of 0.80 so, given the validation curve we obtained, we consider 
+								the improvement good and that this model does not have much more room for improvement.
+								<img src="images\cluster_images\cl0_ols_learningcurve.png" height="300" width="615"/></br>
+								If we see the learning curve made using r2 score we see the model converges but at a score very low. 
+								Seen this, we plot the same curve but using the median absolute error:
+								<img src="images\cluster_images\cl0_ols_learningCurve2.png" height="300" width="615"/></br>
+								<h3>CLUSTER 0 CONCLUSION</h3>
+								We can see that the model made with the variables obtained by the correlation method is better in the 
+								r2 metrics and in complexity, but obtains a very high median error with respect to the second best in 
+								r2 and the first in median error, which is the model made with the variables selected by vif.In this 
+								sense, we consider that although the complexity of the model is increased by twice choosing the vif, 
+								with it we are explaining practically the same percentage of the variability of the dependent variable, 
+								reducing the absolute median error by a much higher percentage, and therefore turns out to be the 
+								chosen model. In this way, we retrain the model using all the data and save it for the production phase.<hr>
+
 								<blockquote><b>We follow the same reasoning for the rest of the clusters so we are going to just make some punctualitation if needed</b></blockquote>
+
+								<h2>IN PROGRESS BELOW...</h2>
+								
 								<h4>Cluster 1</h4>
 								<img src="images\cluster_images\cluster1_bl.png" height="300" width="615"/></br>
 								<img src="images\cluster_images\cluster1_r2_bl.png" height="300" width="615"/></br>
@@ -198,7 +327,7 @@
 								<h4>Cluster 2</h4>
 								<h4>Cluster 3</h4>
 								</p>
-								-->
+							
 								<hr/>
 								<h3>CLASSIFICATION</h3>
 								<p align="justify">In this part we perform the classification of new data given into one of the preceding clusters obtained.
