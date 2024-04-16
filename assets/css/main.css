@@ -2048,7 +2048,14 @@ input, select, textarea {
 
 /* Image */
 
-	.image:hover {
+	.image {
+		border-radius: 5px;
+		border: 0;
+		display: inline-block;
+		position: relative;		
+	}
+
+	.myimage:hover {
 		border-radius: 5px;
 		border: 0;
 		display: inline-block;
@@ -2071,7 +2078,27 @@ input, select, textarea {
 			height: 100%;
 		}
 
+		.myimage[data-position] img {
+			-moz-object-fit: cover;
+			-webkit-object-fit: cover;
+			-ms-object-fit: cover;
+			object-fit: cover;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
 		.image[data-position="top left"] img {
+			-moz-object-position: top left;
+			-webkit-object-position: top left;
+			-ms-object-position: top left;
+			object-position: top left;
+		}
+
+		.myimage[data-position="top left"] img {
 			-moz-object-position: top left;
 			-webkit-object-position: top left;
 			-ms-object-position: top left;
@@ -2085,7 +2112,21 @@ input, select, textarea {
 			object-position: top;
 		}
 
+		.myimage[data-position="top"] img {
+			-moz-object-position: top;
+			-webkit-object-position: top;
+			-ms-object-position: top;
+			object-position: top;
+		}
+
 		.image[data-position="top right"] img {
+			-moz-object-position: top right;
+			-webkit-object-position: top right;
+			-ms-object-position: top right;
+			object-position: top right;
+		}
+
+		.myimage[data-position="top right"] img {
 			-moz-object-position: top right;
 			-webkit-object-position: top right;
 			-ms-object-position: top right;
@@ -2099,7 +2140,21 @@ input, select, textarea {
 			object-position: right;
 		}
 
+		.myimage[data-position="right"] img {
+			-moz-object-position: right;
+			-webkit-object-position: right;
+			-ms-object-position: right;
+			object-position: right;
+		}
+
 		.image[data-position="bottom right"] img {
+			-moz-object-position: bottom right;
+			-webkit-object-position: bottom right;
+			-ms-object-position: bottom right;
+			object-position: bottom right;
+		}
+
+		.myimage[data-position="bottom right"] img {
 			-moz-object-position: bottom right;
 			-webkit-object-position: bottom right;
 			-ms-object-position: bottom right;
@@ -2113,7 +2168,21 @@ input, select, textarea {
 			object-position: bottom;
 		}
 
+		.myimage[data-position="bottom"] img {
+			-moz-object-position: bottom;
+			-webkit-object-position: bottom;
+			-ms-object-position: bottom;
+			object-position: bottom;
+		}
+
 		.image[data-position="bottom left"] img {
+			-moz-object-position: bottom left;
+			-webkit-object-position: bottom left;
+			-ms-object-position: bottom left;
+			object-position: bottom left;
+		}
+
+		.myimage[data-position="bottom left"] img {
 			-moz-object-position: bottom left;
 			-webkit-object-position: bottom left;
 			-ms-object-position: bottom left;
@@ -2127,7 +2196,21 @@ input, select, textarea {
 			object-position: left;
 		}
 
+		.myimage[data-position="left"] img {
+			-moz-object-position: left;
+			-webkit-object-position: left;
+			-ms-object-position: left;
+			object-position: left;
+		}
+
 		.image[data-position="center"] img {
+			-moz-object-position: center;
+			-webkit-object-position: center;
+			-ms-object-position: center;
+			object-position: center;
+		}
+
+		.myimage[data-position="center"] img {
 			-moz-object-position: center;
 			-webkit-object-position: center;
 			-ms-object-position: center;
@@ -2141,7 +2224,21 @@ input, select, textarea {
 			object-position: 25% 25%;
 		}
 
+		.myimage[data-position="25% 25%"] img {
+			-moz-object-position: 25% 25%;
+			-webkit-object-position: 25% 25%;
+			-ms-object-position: 25% 25%;
+			object-position: 25% 25%;
+		}
+
 		.image[data-position="75% 25%"] img {
+			-moz-object-position: 75% 25%;
+			-webkit-object-position: 75% 25%;
+			-ms-object-position: 75% 25%;
+			object-position: 75% 25%;
+		}
+
+		.myimage[data-position="75% 25%"] img {
 			-moz-object-position: 75% 25%;
 			-webkit-object-position: 75% 25%;
 			-ms-object-position: 75% 25%;
@@ -2155,7 +2252,21 @@ input, select, textarea {
 			object-position: 75% 75%;
 		}
 
+		.myimage[data-position="75% 75%"] img {
+			-moz-object-position: 75% 75%;
+			-webkit-object-position: 75% 75%;
+			-ms-object-position: 75% 75%;
+			object-position: 75% 75%;
+		}
+
 		.image[data-position="25% 75%"] img {
+			-moz-object-position: 25% 75%;
+			-webkit-object-position: 25% 75%;
+			-ms-object-position: 25% 75%;
+			object-position: 25% 75%;
+		}
+
+		.myimage[data-position="25% 75%"] img {
 			-moz-object-position: 25% 75%;
 			-webkit-object-position: 25% 75%;
 			-ms-object-position: 25% 75%;
@@ -2167,7 +2278,18 @@ input, select, textarea {
 			display: block;
 		}
 
+		.myimage img {
+			border-radius: 5px;
+			display: block;
+		}
+
 		.image.left {
+			float: left;
+			margin: 0 2.5em 2em 0;
+			top: 0.25em;
+		}
+
+		.myimage.left {
 			float: left;
 			margin: 0 2.5em 2em 0;
 			top: 0.25em;
@@ -2179,7 +2301,20 @@ input, select, textarea {
 			top: 0.25em;
 		}
 
+		.myimage.right {
+			float: right;
+			margin: 0 0 2em 2.5em;
+			top: 0.25em;
+		}
+
 		.image.fit {
+			display: block;
+			margin: 0 0 2.25em 0;
+			width: 100%;
+		}
+
+		
+		.myimage.fit {
 			display: block;
 			margin: 0 0 2.25em 0;
 			width: 100%;
@@ -2190,12 +2325,28 @@ input, select, textarea {
 				width: 100%;
 			}
 
+			.myimage.fit img {
+				display: block;
+				width: 100%;
+			}
+
 		.image.avatar {
 			border-radius: 100%;
 			overflow: hidden;
 		}
 
+		.myimage.avatar {
+			border-radius: 100%;
+			overflow: hidden;
+		}
+
 			.image.avatar img {
+				border-radius: 100%;
+				display: block;
+				width: 100%;
+			}
+
+			.myimage.avatar img {
 				border-radius: 100%;
 				display: block;
 				width: 100%;
@@ -2207,7 +2358,17 @@ input, select, textarea {
 			border-radius: 0;
 		}
 
+		.myimage.main {
+			display: block;
+			height: 20em;
+			border-radius: 0;
+		}
+
 			.image.main img {
+				border-radius: 0;
+			}
+
+			.myimage.main img {
 				border-radius: 0;
 			}
 
