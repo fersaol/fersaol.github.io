@@ -2048,11 +2048,14 @@ input, select, textarea {
 
 /* Image */
 
-	.image {
+	.image:hover {
 		border-radius: 5px;
 		border: 0;
 		display: inline-block;
 		position: relative;
+		transform: scale(2); /* Escala la imagen al 115% */
+		transition: all 0.3s ease-in; /* Agrega una transición suave */
+		
 	}
 
 		.image[data-position] img {
