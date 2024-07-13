@@ -93,6 +93,9 @@
 						received on port 80, we have set up a redirection rule in this listener and the traffic is automatically redirected to port 443.
 						On the oter hand, on the secure traffic listener we have set up a rule pointing to our target group when it is received an http request 
 						containing a heder with our domain.
+						It is also worth mentioning that, for faster network communications, we use inside AWS port 80 for services communication. As it would be
+						requests sent from the Application load balancer to the targets, using the the ALB feature SSL termination. This way we talk outside
+						of AWS, in the public network, using encrypted communications and inside AWS unencrypted communications.
 						The domain is a record created in our DNS registrar Route 53. In the hosted zone, which contains the name servers we have created
 						a record with the name and value provided by ACM (Authority Certification Manager) to be able to encrypt our in flight traffic while
 						connecting through the public internet so we can allow our customers to have secure connections with our application.
