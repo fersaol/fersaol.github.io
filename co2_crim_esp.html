@@ -52,14 +52,29 @@
                         </div>
                         <div class="container">
                             <header class="major">
-                                <h2 align="center">Criminalidad en España <br> PowerBi Dashboard</h2>
-                                <p>PowerBi dashboard where you could find data about crimes in Spain from 2013 to 2021<br />
+                                <h2 align="center">Churn Dashboard <br> PowerBi Dashboard</h2>
+                                <p>Churn Dashboard made for the Bank's customer churning data analysis and prediction project
+									where you can get your own insights and take a look at the data used for the Streamlit app which
+									leverages a scipy supervised machine learning algorithm for binary classification.
+									<br />
                                 </p>
                             </header>
-                            <p align="justify">This project has been made using python for the data ingestion and data cleaning. Once the data has
-								been processed the dataframe has been taken into the power bi app using the power bi python script functionality and then
-								we have made the visualizations. After that we have created a panel for sharing with stakeholders if needed, and lastly we have
-								embedded the project here. The data has been collected from www.ine.es source.
+                            <p align="justify">This project has been made using python Dash library for the frontend, showing the figures, and
+								has been put available for the public using the AWS Cloud. For this infrastructure we have used
+								the following AWS services:
+								<ul>
+									<li><strong>CloudFront:</strong> delivers the web page to the client</li>
+									<li><strong>Route 53:</strong> delivers the web page to the client</li>
+									<li><strong>ACM:</strong> delivers the web page to the client</li>
+									<li><strong>ALB (Application Load Balancer):</strong> delivers the web page to the client</li>
+									<li><strong>ECS (Elastic Conatiners Service):</strong> delivers the web page to the client</li>
+									<li><strong>ECR (Elastic Container Registry):</strong> delivers the web page to the client</li>
+									<li><strong>Fargate:</strong> delivers the web page to the client</li>
+									
+								</ul>
+
+								And we have put them together following the diagram showed below:
+							<img src="images/AWS_ECS_Churn.drawio.png" alt="churn_dashboard_diagram" width="1000"/>
 							</p>
                         </div>
                     </section>
