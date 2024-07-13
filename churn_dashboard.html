@@ -78,31 +78,33 @@
 							</p>
                         </div>
                     </section>
-					<p>
-						As we can see in the diagram our infrastructure is based on containers using the AWS Elastic Containers Service.
-						This containers run on top of the AWS compute service Fargate, which is a managed service by AWS. 
-						The tasks are defined by our task definition based on the image stored in the Elastic Container Registry. This image
-						uses python as the base layer and contains the data, the app and all the dependencies needed to run as well as a gunicorn
-						server, which is recommended to run Dash python apps.
-						All our tasks run inside an ECS cluster and this is placed inside a target group so we can connect them with our application 
-						load balancer. This load balancer is in charge of distribute the traffic load among the tasks and it is able to determine
-						if the tasks are healthy or not, replacing them in this later case, with the aim of the Auto Scaling Group capability provided
-						by EC2 service.
-						In our Application Load Balancer we also have set up two listners, one for secure traffic on port 443 using ssl certificates associated
-						to it and another for insecure traffic on port 80. All the traffic reaching our load balancer on port 443 is allowed but if traffic is
-						received on port 80, we have set up a redirection rule in this listener and the traffic is automatically redirected to port 443.
-						On the oter hand, on the secure traffic listener we have set up a rule pointing to our target group when it is received an http request 
-						containing a heder with our domain.
-						It is also worth mentioning that, for faster network communications, we use inside AWS port 80 for services communication. As it would be
-						requests sent from the Application load balancer to the targets, using the the ALB feature SSL termination. This way we talk outside
-						of AWS, in the public network, using encrypted communications and inside AWS unencrypted communications.
-						The domain is a record created in our DNS registrar Route 53. In the hosted zone, which contains the name servers we have created
-						a record with the name and value provided by ACM (Authority Certification Manager) to be able to encrypt our in flight traffic while
-						connecting through the public internet so we can allow our customers to have secure connections with our application.
-						Finally, to distribute our content faster with low latency globally we are using the AWS Contend Delivery Service called 
-						CloudFront.
+					<div class="container">
+						<p>
+							As we can see in the diagram our infrastructure is based on containers using the AWS Elastic Containers Service.
+							This containers run on top of the AWS compute service Fargate, which is a managed service by AWS. 
+							The tasks are defined by our task definition based on the image stored in the Elastic Container Registry. This image
+							uses python as the base layer and contains the data, the app and all the dependencies needed to run as well as a gunicorn
+							server, which is recommended to run Dash python apps.
+							All our tasks run inside an ECS cluster and this is placed inside a target group so we can connect them with our application 
+							load balancer. This load balancer is in charge of distribute the traffic load among the tasks and it is able to determine
+							if the tasks are healthy or not, replacing them in this later case, with the aim of the Auto Scaling Group capability provided
+							by EC2 service.
+							In our Application Load Balancer we also have set up two listners, one for secure traffic on port 443 using ssl certificates associated
+							to it and another for insecure traffic on port 80. All the traffic reaching our load balancer on port 443 is allowed but if traffic is
+							received on port 80, we have set up a redirection rule in this listener and the traffic is automatically redirected to port 443.
+							On the oter hand, on the secure traffic listener we have set up a rule pointing to our target group when it is received an http request 
+							containing a heder with our domain.
+							It is also worth mentioning that, for faster network communications, we use inside AWS port 80 for services communication. As it would be
+							requests sent from the Application load balancer to the targets, using the the ALB feature SSL termination. This way we talk outside
+							of AWS, in the public network, using encrypted communications and inside AWS unencrypted communications.
+							The domain is a record created in our DNS registrar Route 53. In the hosted zone, which contains the name servers we have created
+							a record with the name and value provided by ACM (Authority Certification Manager) to be able to encrypt our in flight traffic while
+							connecting through the public internet so we can allow our customers to have secure connections with our application.
+							Finally, to distribute our content faster with low latency globally we are using the AWS Contend Delivery Service called 
+							CloudFront.
 
-					</p>
+						</p>
+					</div>
 					<div style="display: flex; align-items: center; justify-content: center;">
 						<button><a target="_blank" href="https://churndashboard.streamlit.intern.fivetheorem.cloud/">
 							Can't wait to see the Dashboard !!
