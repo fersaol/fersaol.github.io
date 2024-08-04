@@ -195,18 +195,26 @@
 						Now that we have no nulls in our dataset, let's check how they are distribuited:
 						<img src="images/eda_images/co2_eda_consprodistri.png" width="600" height="200"/>
 						<img src="images/eda_images/co2_eda_conprodistracum.png" width="600" height="200"/>
+						</br>
+
 						We can see that the vast majority of the data is accumulated around 0 with just some big values, we could interpret
 						this because of the big differences between a little number of countries that have very large numbers related with 
 						the rest. This fact punts on the table the inequality regarding to energy production and consumption in the world.
 						Let's make a plot with the rest of variables:
 						<img src="images/eda_images/co2_eda_alldistributions.png" width="600" height="200"/>
 						<img src="images/eda_images/co2_eda_alldistributionsacum.png" width="600" height="200"/>
+						</br>
+
 						We can appreciate that any of the variables have a normal distribution. It could be that this is not very clear watching
 						just the aggregated data itself so we are going to zoom in at some countries to see how they are distribuited:
 						<h5>Albania</h5>
 						<img src="images/eda_images/albania.png" width="600" height="200"/>
+						</br>
+
 						<h5>Afghanistan</h5>
 						<img src="images/eda_images/afganistan.png" width="600" height="200"/>
+						</br>
+
 						At the moment what I can see in the histograms is that although the number of data referring to each 
 						of the countries is distributed in a more or less uniform way, the variables are not distributed in such 
 						a way. For example, GDP, population, energy consumption and production, CO2 emissions are not distributed 
@@ -215,11 +223,15 @@
 						of the data by individual countries.
 						Let's see how the data grouped by country looks like, on average:
 						<img src="images/eda_images/co2_eda_consumpall.png" width="600" height="500"/>
+						</br>
+
 						Here we can corroborate the distribution that we saw in the histogram, where three countries clearly 
 						monopolize energy consumption and therefore the same will happen with co2 emissions and with the 
 						production and the rest of the countries are concentrated around 0 and 9.86. In this way, 
 						that 25 percent accumulated up to 0 makes sense. let's take a closer look to the biggest ones:
 						<img src="images/eda_images/co2_eda_15consum.png" width="600" height="300"/>
+						</br>
+
 						<h4>3. Negative Numbers</h4>
 						<h5>Energy Consumption Negative Numbers</h5>
 						The first thing we are going to check is the types of energy related with negative numbers, for that we
@@ -261,30 +273,42 @@ todos los valores corresponden a Qatar con un total de 6 valores
 	3
 							</code></pre>
 							<img src="images/eda_images/co2_eda_3negatives.png" width="600" height="100"/>
+							</br>
+
 							We have three data, corresponding to the coal of Singapore, in which it is indicated that the CO2 emissions are negative. Given the 
 							years to which they correspond, and that in those years there was no energy production, only consumption, it could be interpreted as 
 							that instead of emitting, they absorbed co2 from the atmosphere, which for us does not make sense and, since there are only 3 data, 
 							we think it would be good to remove them from the dataframe.
+
 						<h4>4. Outliers</h4>
 						<h5>The maximum GDP is very high, confirm that it is not an outlier and do the same for the minimum. Check the outliers in general.</h5>
 						For this part first we filter our features choosing only the numeric ones:
 						<pre><code>df_continuas = df.select_dtypes(exclude=["object","datetime64"])</code></pre>
 						then, we plot them using boxplots:
 						<img src="images/eda_images/boxplots.png" width="600" height="300"/>
+						</br>
+
 						Given the data distribution seen before in which most of the energy production and consumption, as well as CO2 emissions 
 						and population are concentrated in a few countries, we consider the boxplots we see to be normal and we cannot consider 
 						there are outliers. In Energy_intensity_by_GDP we could see that we have two outliers but it is not worth removing them.
 						Let's check countries' population:
 						<img src="images/eda_images/co2_eda_population.png" width="600" height="600"/>
+						</br>
+
 						As we can not see properly the data, althoug we can spot the general trend in the world population, let's focus on the 5
 						world largest populated countries:
 						<img src="images/eda_images/co2_eda_5_largestpop.png" width="600" height="300"/>
+						</br>
+
 						We see how the majority of the population is concentrated in China, India, the United States and Indonesia, and hence that boxplot, 
 						we cannot put them as outliers.<hr>
 						Let's take a look at how much data we have left divided by type of energy and year:
 						<img src="images/eda_images/co2_eda_datacounting.png" width="600" height="200"/>
+						</br>
+
 						In the next graph we can see the same but each column give us the total amount of data by year in a clearer way:
 						<img src="images/eda_images/co2_eda_datacounterplotly.png" width="600" height="300"/>
+						</br>
 
 						In the data Russia is divided into Russia and Former U.S.S.R and Germany into Germany, Germany East and Germany West, so we are going to
 						update the names because if not, the data is distorted as those countries does no longer exist.
@@ -296,6 +320,8 @@ df["Country"] = df["Country"].replace(reemplazo)
 						<img src="images/eda_images/40biggestproducers.png" width="600" height="300"/>
 						<img src="images/eda_images/40biggestconsumers.png" width="600" height="300"/>
 						<img src="images/eda_images/40biggestemmiters.png" width="600" height="300"/>
+						</br>
+						
 						<h4>Feature Engineering</h4>
 						In this section we have created some new variables in order to acquire a better understanding of the countries' co2 emission and also to be
 						able to gather new insights and relationships. For this purpose we have created the following:
