@@ -321,7 +321,7 @@ df["Country"] = df["Country"].replace(reemplazo)
 						<img src="images/eda_images/40biggestconsumers.png" width="600" height="300"/>
 						<img src="images/eda_images/40biggestemmiters.png" width="600" height="300"/>
 						</br>
-						
+
 						<h4>Feature Engineering</h4>
 						In this section we have created some new variables in order to acquire a better understanding of the countries' co2 emission and also to be
 						able to gather new insights and relationships. For this purpose we have created the following:
@@ -370,14 +370,20 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						Now, let's take a look at the mix production for the 4 biggest producers and the 14 smallest ones, 
 						the biggest are first:<br>
 						<img src="images/eda_images/co2_eda_pie_production.png" width="600" height="1000"/>
+						</br>
+
 						(zooming in the data can be read better or you can see the graphs on <a href="https://github.com/fersaol/co2_Exploratory_Data_Analysis/blob/main/src/notebooks/analisis_co2.ipynb"> the github source</a>)<br>
 						and take a look at their GDP Evolution:
 						<img src="images/eda_images/co2_eda_evolupig.png" width="600" height="300"/>
+						</br>
+
 						We have seen that China is the second largest producer of energy and that 75 percent of it comes 
 						from coal, we also see that its GDP has grown exponentially during the period surpassing the 
 						United States that has had a linear growth.However, we can see in the next plot that China is not the country 
 						that emits more CO2 per ton of BTU of energy produced on average:
 						<img src="images/eda_images/co2_eda_30leastefimean.png" width="600" height="300"/>
+						</br>
+
 						and this does not fit much with the fact that the production mostly comes from coal, with the United States 
 						ahead of China, although very even, the latter having a generation mix more distributed among sources.
 						For this reason, we think that we should look instead of the average CO2 emitted per ton, the sum of CO2 
@@ -385,10 +391,14 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						the most related to the production they provide, and also if the pollution between them is similar, we see this
 						in the next graph:
 						<img src="images/eda_images/co2_eda_30leasteficountries.png" width="600" height="300"/>
+						</br>
+
 						We observe the positions remain relatively stable if we consider the total CO2 per ton emitted, 
 						keeping China in 20th place and the United States rising to 18th ahead of it. Let's look at CO2 
 						emissions in absolute value:
 						<img src="images/eda_images/co2_eda_30greaterpoluters.png" width="600" height="300"/>
+						</br>
+
 						Looking at the absolute values we can see that in total China and the United States, despite their 
 						differences in the mix of energy used to produce it, pollute practically the same, with the United States 
 						ahead of China.In addition, per ton of btu of energy produced, the mix of the United States pollutes more 
@@ -397,12 +407,16 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						China's growth. Let's see how the energy used by China and the United States has evolved over time:
 						<h5>CHINA</h5>
 						<img src="images/eda_images/co2_eda_energy_production_etype.png" width="600" height="300"/>
+						</br>
+
 						We see how China since 1999, although it has not changed its energy production model, it has 
 						greatly enhanced it, which has helped it to its strong growth. That is to say, that the great 
 						increase in production with coal may be a consequence of profound changes in its national 
 						productive structure, not changing its production model but enhancing it.
 						<h5>UNITED STATES</h5>
 						<img src="images/eda_images/co2_eda_enerprodbyetype.png" width="600" height="300"/>
+						</br>
+
 						In the case of the United States we see that from 2007 it is carrying out a change 
 						in its energy production structure since it has stopped producing with coal in an 
 						important way and is strongly promoting natural gas and oil, but not the renewables 
@@ -410,8 +424,12 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						Let's plot the same graphs adding the GDP Evolution:
 						<h5>CHINA</h5>
 						<img src="images/eda_images/co2_eda_prodvsgdpchina.png" width="600" height="300"/>
+						</br>
+
 						<h5>UNITED STATES</h5>
 						<img src="images/eda_images/co2_eda_prodvsgdp.png" width="600" height="300"/>
+						</br>
+
 						In the case of the United States we can see that when the change in production begins, 
 						it begins to grow at a lower rate than it had been doing, however in the case of China 
 						it seems a fairly stable growth. Let's see what the average annual growth has been for 
@@ -430,6 +448,8 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						this type of relationship for both countries in the next scatterplots:
 						<img src="images/eda_images/co2_eda_scatterchina.png" width="600" height="300"/>
 						<img src="images/eda_images/co2_eda_scatterus.png" width="600" height="300"/>
+						</br>
+
 						In the scatters above the size of the bubbles represents the amount of energy produced and the color the GDP, so as we
 						can appreciate the energy production increases much more in China than in the United States.
 						<h4>Hypothesis Contrast</h4>
@@ -461,23 +481,33 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						the periods that make the different averages and therefore confirms that the change in 
 						the mix has had an effect on CO2 emissions
 						<h4>Correlation</h4>
-						<img src="images/eda_images/co2_eda_allvarscorrelation.png" width="600" height="400"/><br>
+						<img src="images/eda_images/co2_eda_allvarscorrelation.png" width="600" height="400"/>
+						</br>
+
 						Now let's check these correlations groupped by Country, focusing on China and US what are the countries 
 						we are studying because of their importance in the world:
 						<h5>China</h5>
-						<img src="images/eda_images/co2_eda_chinacorrs.png" width="600" height="400"/><br>
+						<img src="images/eda_images/co2_eda_chinacorrs.png" width="600" height="400"/>
+						</br>
+
 						<h5>United States</h5>
-						<img src="images/eda_images/co2_eda_uscorrs.png" width="600" height="400"/><br>
+						<img src="images/eda_images/co2_eda_uscorrs.png" width="600" height="400"/>
+						</br>
+
 						<h4>Continent Base Insights</h4>
 						Now we are going to take a look at the data aggregated by continents as we are going to be able to spot
 						some additional and different information regarding to the countries from another point of view:
 						Firstly, we check the aggregated gdp:
-						<img src="images/eda_images/co2_eda_continentgdp.png" width="600" height="300"/><br>
+						<img src="images/eda_images/co2_eda_continentgdp.png" width="600" height="300"/>
+						</br>
+
 						As we can see Asia, North America and Europe are the continents with a
 						higher value of gdp and then we have South America, Africa and Oceania. We have divided America in two 
 						parts because we consider there are enough economic and cultural differences that allow us to have a better
 						picture. Then we compare the energy production with energy consumption:
-						<img src="images/eda_images/co2_eda_prodvscons.png" width="600" height="300"/><br>
+						<img src="images/eda_images/co2_eda_prodvscons.png" width="600" height="300"/>
+						</br>
+
 						In this plot we can see that the continents with more gdp also have the greatest energy consumption and that
 						positions are the same as before except for Africa and South America. In these two particular ones the gdp is
 						similar but Africa has more energy consumption than South America. Then, Looking at the energy production we can
@@ -485,11 +515,15 @@ array(['World', 'Reunion', 'U.S. Pacific Islands', 'U.S. Territories',
 						By other hand, we can see Asia,North America and Europe are net producers and can sell energy to the rest of the world
 						and Africa, South America and Ocania are importers as they do not produce enough energy for their requirements.
 						In the Europe case, the amount is very low. Let's check co2 emissions:
-						<img src="images/eda_images/co2_eda_continentemissions.png" width="600" height="300"/><br>
+						<img src="images/eda_images/co2_eda_continentemissions.png" width="600" height="300"/>
+						</br>
+
 						Here we can see that Asia and North America emmits the majority of the Co2 as well as they are the continents with 
 						more production and consumption. Is noteciable how Africa has less gdp than South America but consumes more energy
 						and emmits more co2. Now let's ckeck energy dependency:
-						<img src="images/eda_images/co2_eda_continentdependency.png" width="600" height="300"/><br>
+						<img src="images/eda_images/co2_eda_continentdependency.png" width="600" height="300"/>
+						</br>
+
 						In this plot we can appreciate Europe has grown a lot and Asia remains the first. This can be explained due to big
 						differences between the countries that composes each continent, this way in Asia the majority of countries are energy
 						dependant and China is the opposite. This same thing happens in Europe.
