@@ -100,13 +100,17 @@
 						If we check the info we can realize about the beforehand information and we can know exactly how many
 						nulls there are in every single feature, we see this in the picture below:
 						</br>
-						
+
 						<img src="images/eda_images/info.png" width="600"/>
 						</br>
 
 						folowing with the description of our dataset, we first drop the Unnamed column, and then we check the
 						describe of the features:
+						</br>
+
 						<img src="images/eda_images/co2_eda_describe.png" width="600" height="200"/>
+						</br>
+
 						First of all we can see that having year as an integer does not make any sense so we are changing it to
 						datetime. We also see that Energy consumption and Energy production both have similar values, so the scale
 						is close to each other, and gdp has a very high standard deviation. This indicate there is a big difference 
@@ -121,8 +125,8 @@
 							<li>From the energy_consumption column are null values, we need to identify them and decide if we remove or replace them.</li>
 							<li>Negative Numbers:
 								<dl>
-									<dt>-	The Energy_consumption minimum is negative so we have to look up if this has sense. We also have to discover 
-										if 25% of the data that is accumulated till 0 makes sense too.</dt>
+									<dt>-	The Energy_consumption minimum is negative so we have to look up if this makes sense. We also have to discover 
+										if 25% of the data that is accumulated until 0 makes sense too.</dt>
 									<dt>-	In Energy production happens the same as in Energy_consumption, however for 50 and 75 percentiles it can make sense 
 										the country has a negative production if these countries do not produce energy enough and they have to import it, 
 										being its balance negative. In this case, the variable would be a net balance and we beleive is not the case, we should 
