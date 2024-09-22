@@ -63,13 +63,14 @@
 								has been put available for the public using the AWS Cloud. For this infrastructure we have used
 								the following AWS services:
 								<ul>
-									<li><strong>CloudFront:</strong> delivers the web page to the client</li>
-									<li><strong>Route 53:</strong> delivers the web page to the client</li>
-									<li><strong>ACM:</strong> delivers the web page to the client</li>
-									<li><strong>ALB (Application Load Balancer):</strong> delivers the web page to the client</li>
-									<li><strong>ECS (Elastic Conatiners Service):</strong> delivers the web page to the client</li>
-									<li><strong>ECR (Elastic Container Registry):</strong> delivers the web page to the client</li>
-									<li><strong>Fargate:</strong> delivers the web page to the client</li>
+									<li><strong>CloudFront:</strong> delivers the web page to the client from the nearest PoP (Point of presence)</li>
+									<li><strong>Route 53:</strong> makes the access easier to the client by providing the domain name </li>
+									<li><strong>ACM:</strong> provides the domain name certificate to make secure requests to the web app </li>
+									<li><strong>ALB (Application Load Balancer):</strong> helps balancing the traffic load to the web app handling sudden spikes</li>
+									<li><strong>ECS (Elastic Conatiners Service):</strong> services that allows the deployment of containers </li>
+									<li><strong>ECR (Elastic Container Registry):</strong> service that contains images for deploying containers</li>
+									<li><strong>Fargate:</strong> serverless compute service for ECS that makes the web app scalable and cost effective </li>
+									<li><strong>S3:</strong> Object storage service that holds the dataset </li>
 									
 								</ul>
 
