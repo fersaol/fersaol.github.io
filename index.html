@@ -160,76 +160,65 @@
 								
 							</section>
 
-<!-- Array de componentes donde puedo organizar los proyectos -->
-<section id="three">
-    <div class="container">
-        <h3 style="color: orangered;">Projects</h3>
-        <p>Here you could find a list of self made projects you would probably find interesting</p>
-        
-        <div class="features">
-            <!-- Componentes -->
-            <div id="inflaction-dashboard-component"></div>
-			<div id="customer-churn-component"></div>
-            <div id="coffee-shop-web-component"></div>
-            <div id="react-amplify-component"></div>
-            <div id="flash-cards-component"></div>
-			<div id="co2_eda-component"></div>
-			<div id="co2_ml-component"></div>
-            <div id="lottery-game-component"></div>
-            <div id="excel-nutrition-component"></div>
-            <div id="diary-tkinter-component"></div>
-			<div id="coffee-shop-terminal-component"></div>
-            <!-- Más componentes aquí -->
-        </div>
-    </div>
-</section>
+							<!-- Array de componentes donde puedo organizar los proyectos -->
+							<section id="three">
+								<div class="container">
+									<h3 style="color: orangered;">Projects</h3>
+									<p>Here you could find a list of self made projects you would probably find interesting</p>
+									
+									<div class="features">
+										<!-- Componentes -->
+										<div id="inflaction-dashboard-component"></div>
+										<div id="customer-churn-component"></div>
+										<div id="coffee-shop-web-component"></div>
+										<div id="react-amplify-component"></div>
+										<div id="flash-cards-component"></div>
+										<div id="co2_eda-component"></div>
+										<div id="co2_ml-component"></div>
+										<div id="lottery-game-component"></div>
+										<div id="excel-nutrition-component"></div>
+										<div id="diary-tkinter-component"></div>
+										<div id="coffee-shop-terminal-component"></div>
+										<!-- Más componentes aquí -->
+									</div>
+								</div>
+							</section>
 
-<!-- Script para cargar los componentes -->
-<script>
-    (async function() {  // IIFE principal
-        // Función para cargar un componente
-        async function loadComponent(componentName) {
-            try {
-                const response = await fetch(`components/${componentName}.html`);
-                const data = await response.text();
-                document.getElementById(`${componentName}-component`).innerHTML = data;
-            } catch (error) {
-                console.error(`Error loading ${componentName}:`, error);
-            }
-        }
+							<!-- Script para cargar los componentes -->
+							<script>
+								(async function() {  // IIFE principal
+									// Función para cargar un componente
+									async function loadComponent(componentName) {
+										try {
+											const response = await fetch(`components/${componentName}.html`);
+											const data = await response.text();
+											document.getElementById(`${componentName}-component`).innerHTML = data;
+										} catch (error) {
+											console.error(`Error loading ${componentName}:`, error);
+										}
+									}
 
-        // Lista de componentes a cargar
-        const components = [
-            'inflaction-dashboard',
-            'coffee-shop-web',
-            'react-amplify',
-            'customer-churn',
-            'flash-cards',
-            'co2_eda',
-            'co2_ml',
-            'lottery-game',
-            'excel-nutrition',
-            'diary-tkinter',
-            'coffee-shop-terminal'
-        ];
+									// Lista de componentes a cargar
+									const components = [
+										'inflaction-dashboard',
+										'coffee-shop-web',
+										'react-amplify',
+										'customer-churn',
+										'flash-cards',
+										'co2_eda',
+										'co2_ml',
+										'lottery-game',
+										'excel-nutrition',
+										'diary-tkinter',
+										'coffee-shop-terminal'
+									];
 
-        // Cargar todos los componentes
-        document.addEventListener('DOMContentLoaded', () => {
-            components.forEach(component => loadComponent(component));
-        });
-    })();  // Cierre de la IIFE
-</script>
-
-
-										<!--
-										<article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-											<div class="inner">
-												<h4>Snapped dark matter in the wild</h4>
-												<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-											</div>
-										</article>
-									-->
+									// Cargar todos los componentes
+									document.addEventListener('DOMContentLoaded', () => {
+										components.forEach(component => loadComponent(component));
+									});
+								})();  // Cierre de la IIFE
+							</script>
 									</div>
 								</div>
 							</section>
