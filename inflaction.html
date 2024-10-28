@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header of the web page -->
+		<section id="header">
+			<header>
+				<span class="image avatar" href="index.html#one"><img src="images\face.jpeg" alt="" /></span>
+				<h1 id="logo"><a href="index.html#one">Fernando Sánchez Olmo</a></h1>
+				<p>
+					AWS Solutions Architect<br/>Data Analyst
+				</p>
+			</header>
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html#one" class="active">About Me</a></li>
+					<li><a href="index.html#two">Things I Can Do</a></li>
+					<li><a href="index.html#three">Portfolio</a></li>
+					<li><a href="index.html#four">Contact</a></li>
+				</ul>
+			</nav>
+			<footer>
+				<ul class="icons">
+					<li><a href="https://www.linkedin.com/in/fernandosanchezolmo/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+					<li><a href="https://github.com/fersaol" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					<li><a href="mailto:portfolio.water061@passinbox.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+			</footer>
+		</section>
+<!-- End Header of the web page -->
+
+
+        <!-- Customizable part -->
+    <div id="wrapper">
+
+        <!-- Main -->
+            <div id="main">
+
+                <!-- One -->
+                    <section id="one">
+                        <div class="image main" data-position="center">
+                            <img src="images/custormer_churn.png" alt="" />
+                        </div>
+                        <div class="container">
+                            <header class="major">
+                                <h2 align="center">Inflaction Dashboard</h2>
+                                <p style="color: blueviolet;">This dashboard has been created to acknowledge in a visual and easy way the inflaction effect
+									and why it is so damaging for the personal economy.
+									<br />
+                                </p>
+                            </header>
+                            <p align="justify">This project has been developed using streamlit and python and made available for the public using the AWS ifrastructure as follows:
+								<ul>
+									<li><strong>CloudFront:</strong> delivers the web page to the client from the nearest PoP (Point of presence)</li>
+									<li><strong>Route 53:</strong> makes the access easier to the client by providing the domain name </li>
+									<li><strong>ACM:</strong> provides the domain name certificate to make secure requests to the web app </li>
+									<li><strong>ALB (Application Load Balancer):</strong> helps balancing the traffic load to the web app handling sudden spikes</li>
+									<li><strong>ECS (Elastic Conatiners Service):</strong> service that allows the deployment of containers </li>
+									<li><strong>Docker Hub:</strong> service that contains images for deploying containers</li>
+									<li><strong>Fargate:</strong> serverless compute service for ECS that makes the web app scalable and cost effective </li>
+									<li><strong>S3:</strong> Object storage service that holds the dataset for the Spain's public debt</li>
+									<li><strong>Inflaction dataset:</strong> retrieved through a GET request to the INE (Instituto Nacional de Estadística) api</li>
+									
+								</ul>
+
+								And we have put them together following the diagram showed below:
+							<img src="images/AWS_ECS_Churn.drawio.png" alt="churn_dashboard_diagram" width="800"/>
+							</p>
+                        </div>
+                    </section>
+					<div class="container">
+						<p align="justify">
+							Explanation?
+
+						</p>
+					</div>
+					<div style="display: flex; align-items: center; justify-content: center;">
+						<button><a target="_blank" href="http://churn.intern.fivetheorem.cloud">
+							Can't wait to see the Dashboard !!
+								</a>
+						</button>
+					</div>
+
+
+		<p>Untitled. All rights reserved.</p>			
+	<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+</body>						
+    </html>
