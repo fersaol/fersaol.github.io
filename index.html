@@ -160,295 +160,66 @@
 								
 							</section>
 
-						<!-- Three -->
-							<section id="three">
-								<div class="container">
-									<h3 style="color: orangered;">Projects</h3>
-									<p>Here you could find a list of self made projects you would probably find interesting</p>
-									
-									<div class="features">
-										<article>
-												<img src="images/inflaction_portada.png" alt="" class="image"/>
-										
-											<div class="inner">
+<!-- Array de componentes donde puedo organizar los proyectos -->
+<section id="three">
+    <div class="container">
+        <h3 style="color: orangered;">Projects</h3>
+        <p>Here you could find a list of self made projects you would probably find interesting</p>
+        
+        <div class="features">
+            <!-- Componentes -->
+            <div id="inflaction-dashboard-component"></div>
+			<div id="customer-churn-component"></div>
+            <div id="coffee-shop-web-component"></div>
+            <div id="react-amplify-component"></div>
+            <div id="flash-cards-component"></div>
+			<div id="co2_eda-component"></div>
+			<div id="co2_ml-component"></div>
+            <div id="lottery-game-component"></div>
+            <div id="excel-nutrition-component"></div>
+            <div id="diary-tkinter-component"></div>
+			<div id="coffee-shop-terminal-component"></div>
+            <!-- Más componentes aquí -->
+        </div>
+    </div>
+</section>
 
-												<h4 style="color: orange;">AWS-Streamlit Inflaction Dashboard</h4>
-												<p>
-													Here you will find a very easy understandable dashboard for the inflaction effect in Spain.
-												</p>
-									
-												<ul class="alt">
-													<li>Main Tools used: AWS Services, Streamlit, Python, Docker and Docker Hub</li>
-													<li>Category: Cloud, Web Development, Python</li>
-													<li>Year: October 2024</li>
-												</ul>
-												<button
-													type="button">
-													<a target="_blank" href="inflaction.html">More Info and Web Dashboard</a>
-												</button>
-											</div>
-										</article>
+<!-- Script para cargar los componentes -->
+<script>
+    (async function() {  // IIFE principal
+        // Función para cargar un componente
+        async function loadComponent(componentName) {
+            try {
+                const response = await fetch(`components/${componentName}.html`);
+                const data = await response.text();
+                document.getElementById(`${componentName}-component`).innerHTML = data;
+            } catch (error) {
+                console.error(`Error loading ${componentName}:`, error);
+            }
+        }
 
-										<!-- ... código existente ... -->
-										<div id="customer-churn-component"></div>
-										<script>
-											fetch('components/customer-churn.html')
-												.then(response => response.text())
-												.then(data => {
-													document.getElementById('customer-churn-component').innerHTML = data;
-												})
-												.catch(error => console.error('Error loading component:', error));
-										</script>
-										<!-- ... código existente ... -->
-										
-										<article>
-											<a 
-												href="https://github.com/fersaol/fersaol.github.io/blob/main/images/CoffeeShopWeb.drawio.png"
-												target="_blank">
-												<img src="images/CoffeeShopWeb.drawio.png" alt="" class="image"/>
-											</a>
-											<div class="inner">
+        // Lista de componentes a cargar
+        const components = [
+            'inflaction-dashboard',
+            'coffee-shop-web',
+            'react-amplify',
+            'customer-churn',
+            'flash-cards',
+            'co2_eda',
+            'co2_ml',
+            'lottery-game',
+            'excel-nutrition',
+            'diary-tkinter',
+            'coffee-shop-terminal'
+        ];
 
-												<h4 style="color: orange;">AWS React-Redux Coffee Shop Web</h4>
-												<p>
-													This is a dynamic website made using react and redux for handling an online coffee shop.
-													The architecture is a 3 tier web in a cloud infrastructue as follows:
-													<ul>
-														<li><strong>Amplify:</strong> delivers the web page to the client</li>
-														<li><strong>Api Gateway:</strong> routes the client requests to the appropriate lambda function</li>
-														<li><strong>Lambda Functions:</strong> perform the computational work and the business logic updating/getting the data from the dynamodb</li>
-														<li><strong>dynamodb:</strong> stores the store products</li>
-													</ul>
-													Github allows us for CI/CD and redux along with redux/toolkit allows us to manage the cart, storing
-													the products temporarily, until the purchase is confirmed and then it clears the store and make the changes
-													needed onto the dynamodb, permanently.
-												</p>
-												<p style="color:coral;font-style: italic;"><strong>Note:</strong> In progress</p>
-												<ul class="alt">
-													<li>Main Tools used: Amplify, Dynamodb, Lambda, Api Gateway Github, IAM, Redux/toolkit and Redux, React, JavaScript</li>
-													<li>Category: Cloud, Web Development</li>
-													<li>Year: April 2024</li>
-												</ul>
-												<button
-													type="button">
-													<a target="_blank" href="https://main.d1csyopxrvy87r.amplifyapp.com/">Go Coffee Shop</a>
-												</button>
-											</div>
-										</article>
+        // Cargar todos los componentes
+        document.addEventListener('DOMContentLoaded', () => {
+            components.forEach(component => loadComponent(component));
+        });
+    })();  // Cierre de la IIFE
+</script>
 
-										<article>
-											<img src="images/reactAmplifyDiagram.png" alt="" class="image"/>
-											<div class="inner">
-
-												<h4 style="color: orange;">AWS React Web using Amplify</h4>
-												<p>
-													This is a dynamic website made using react, redux, redux/toolkit, bootstrap
-													and react-router-dom. It is meant for managing workers so you can pick
-													the candidates and assign them to continents and departments. It is hosted in AWS
-													CodeCommit for CI/CD deployment through Amplify that is a managed service which builds
-													the infrastructure needed for us, making easy and fast the deployment of the app.
-													To upload the code we have installed the cli into the local pc and to operate through
-													the different services we have had to grant access using IAM so we have generated https
-													git credentials for CodeCommit and we have given permissions through a policy to allow
-													CodeCommit deploy the changes to Amplify.
-
-												</p>
-												<ul class="alt">
-													<li>Main Tools used: Amplify, CodeCommit, IAM, CLI, Redux/toolkit and Redux, React, JavaScript</li>
-													<li>Category: Cloud, Web Development</li>
-													<li>Year: April 2024</li>
-												</ul>
-												<button
-													type="button">
-													<a target="_blank" href="https://master.d20dp79apu21jm.amplifyapp.com/">Go to Candidate Management Web</a>
-												</button>
-											</div>
-										</article>
-
-										<article>
-											<img src="images/flashcards.png" alt="" class="image"/>
-											<div class="inner">
-
-												<h4 style="color: orange;">AWS services FlashCards Repository</h4>
-												<p>
-													This is an static website stored in an s3 bucket meant to be an AWS
-													services repository of flashcards so aws learners can save time while
-													studying and use it as a quick remainder and easy to remember, 
-													clear and concise definitions of the main aws services.
-													I found out this flashcards very useful while studying for my ccp exam.
-												</p>
-												<p style="color:coral;font-style: italic;"><strong>Note:</strong> Continuously updating</p>
-												<ul class="alt">
-													<li>Main Tools used: s3 bucket, html, JavaScript</li>
-													<li>Category: Cloud, Web Development</li>
-													<li>Year: March 2024</li>
-												</ul>
-												<button
-													type="button">
-													<a target="_blank" href="http://myawsflashcards.s3-website-eu-west-1.amazonaws.com/">AWS FlashCards Repository</a>
-												</button>
-											</div>
-										</article>
-
-										<article>
-											<img src="images/custormer_churn.png" alt="" class="image"/>
-											<div class="inner">
-
-												<h4 style="color: orange;">Customer Churn ML</h4>
-												<p>
-													Exploratory Data Analysis and hypothesis testing to see if some
-													of the variables would be worthy to mantain. Once this is done, 
-													we use some supervised Machine learning algorithms to classify 
-													the customers in churn and not churn. Then we show the data using
-													a Dash dashboard where you can find your own insights and take a look
-													at the data and a Streamlit app where you can make your own predictions
-													and get insights with a fully functional machine learning algorithm.
-												</p>
-												<ul class="alt">
-													<li>Main Tools used: Python, Scikit-learn, Plotly, Pandas, Numpy, Dash, Streamlit</li>
-													<li>Category: Classification, Prescriptive analysis, Predictive analysis</li>
-													<li>Year: March 2024</li>
-												</ul>
-												<div style="display:flex;align-items: center;justify-content: center;">
-													<button
-														type="button">
-														<a target="_blank" href="https://github.com/fersaol/ChurnDataScienceProject">Watch in Github</a>
-													</button>
-
-													<button
-													type="button">
-													<a target="_blank" href="https://churnappfer.streamlit.app/">Try out the App!!</a>
-													</button>
-
-													<button
-													type="button">
-													<a target="_blank" href="churn_dashboard.html">Get Your Own Insights</a>
-													</button>
-												</div>
-											</div>
-										</article>
-
-										<article>
-											<img src="images/co2_project.png" alt="" class="image"/>
-											<div class="inner">
-
-												<h4 style="color: orange;">World Co2 Emissions ML</h4>
-												<p>Machine Learning project that ensambles three models in order to obtain a web app that allows countries
-													to predict its efficiency producing energy so they can be classified in a cluster and 
-													get recommendations with the aim of checking their environmental policies.
-												</p>
-												<ul class="alt">
-													<li>Main Tools used: Python, Scikit-learn, Plotly, Pandas, Numpy, Flask, Streamlit</li>
-													<li>Category: Clustering, Regression, Classification</li>
-													<li>Year: October 2022</li>
-												</ul>
-												
-												<button
-												type="button">
-												<a target="_blank" href="co2_ml.html">See the Project</a>
-												</button>
-											</div>
-										</article>
-
-										<article>
-											<img src="images/co2_eda_icon.jpg" alt="" class="image"/>
-											<div class="inner">
-												<h4 style="color: orange;">Co2 EDA project</h4>
-												<p>Here we examine the co2 dataset and get insights about it, cleanning it and making
-													some graphs that allow us to better understand what is behind the data.
-												</p>
-												<ul class="alt">
-													<li>Main Tools used: Python, Plotly, Pandas, Numpy</li>
-													<li>Category: Exploratory Data Analysis</li>
-													<li>Year: June 2022</li>
-												</ul>
-
-												<button
-												type="button">
-												<a target="_blank" href="co2_eda.html">See the Project</a>
-												</button>
-											</div>
-										</article>
-
-										<article>
-											<img class="image" src="images/coffee-shop-store-front.jpg" alt="" />
-											<div class="inner">
-												<h4 style="color: orange;">Coffee Shop Online</h4>
-												<p>
-													Terminal based Python project for the Cloud Support Engineer training program where
-													working in groups we developed in one day a fully functional app for managing the orders
-													of a coffee shop. The app allows customer to buy food, drinks and books and when the 
-													order is finished gives you the option of deliver it to your home. When the order is
-													finished returns a bill.
-												</p>
-												
-												<ul class="alt">
-													<li>Main Tools used: Python, Pandas, Numpy</li>
-													<li>Category: App Development</li>
-													<li>Date: January 2024</li>
-												</ul>
-												<button><a target="_blank" href="https://github.com/fersaol/CoffeShopGeneration">Watch in Github</a></button>
-											</div>
-										</article>
-
-										<article>
-											<img class="image" src="images/diaryTkinter.png" alt="" />
-											<div class="inner">
-												<h4 style="color: orange;">Tkinter Job Seeking Diary</h4>
-												<p>
-													This is a tkinter application made for having a diary of the companys where
-													you have applied for and a registry of the requirements that they are requesting
-												</p>
-												
-												<ul class="alt">
-													<li>Main Tools used: Python, Tkinter</li>
-													<li>Category: App Development</li>
-													<li>Date: November 2022</li>
-												</ul>
-												<button><a target="_blank" href="https://github.com/fersaol/registro_empleo_tkinter">Watch in Github</a></button>
-											</div>
-										</article>
-
-										<article>
-											<img class="image" src="images/eat_helthy.jpeg" alt="" />
-											<div class="inner">
-												<h4 style="color: orange;">Excel Nutrients Analysis</h4>
-												<p>
-													This Excel provides a way of take control over the calories and the macronutrients
-													eaten throughout day so you can keep yourself under control setting objectives and
-													having an overview of you nutrients intake what allows you to analyze your diet.
-												</p>
-												
-												<ul class="alt">
-													<li>Main Tools used: Excel</li>
-													<li>Category: App Development and Business Analysis</li>
-													<li>Date: December 2023</li>
-												</ul>
-												<p>If you wish, you can download the Excel here:</p>
-												<button><a target="_blank" href="https://github.com/fersaol/nutrismartExcel">download Nutrition App</a></button>
-											</div>
-										</article>
-
-										<article>
-											<img class="image" src="images/LotteryGame.jpeg" alt="" />
-											<div class="inner">
-												<h4 style="color: orange;">Lottery Game</h4>
-												<p>
-													Try your luck running in a Jupyter Notebook this lottery game so you can know what to
-													expect in advance while playing lottery. In this game you can simulate that you play
-													lottery, let's say once every day during 100 years, and know how many times you will 
-													would have won the lottery. I won the lottery 2 times in 1000 years, would you be luckier
-													than me?.<br>
-													<p style="color:coral;font-style: italic;"><strong>Coming Soon:</strong> React app and React Native app to make it interactive</p>
-												</p>
-												<ul class="alt">
-													<li>Main Tools used: Python, Plotly, Numpy</li>
-													<li>Category: Game</li>
-													<li>Year: February 2024</li>
-												</ul>
-												<button><a target="_blank" href="https://github.com/fersaol/Lottery_Game">Watch in Github</a></button>
-											</div>
-										</article>
 
 										<!--
 										<article>
