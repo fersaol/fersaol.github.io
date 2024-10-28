@@ -189,6 +189,18 @@
 											</div>
 										</article>
 
+										<!-- ... código existente ... -->
+										<div id="customer-churn-component"></div>
+										<script>
+											fetch('components/customer-churn.html')
+												.then(response => response.text())
+												.then(data => {
+													document.getElementById('customer-churn-component').innerHTML = data;
+												})
+												.catch(error => console.error('Error loading component:', error));
+										</script>
+										<!-- ... código existente ... -->
+										
 										<article>
 											<a 
 												href="https://github.com/fersaol/fersaol.github.io/blob/main/images/CoffeeShopWeb.drawio.png"
